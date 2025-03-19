@@ -18,9 +18,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (player.transform.position.y < -10f) 
         {
-            SceneManager.LoadScene("Level1 Alternate", LoadSceneMode.Single);
+            SceneManager.LoadScene("Level1", LoadSceneMode.Single);
         }
     }
-    
-
 }

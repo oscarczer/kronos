@@ -7,96 +7,96 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     #region Global Variables
-        // Main Player Variables
-        private Rigidbody2D playerRb;
-        private BoxCollider2D playerHitbox;
-        public float startingTime = 30;
-        private float remainingTime;
-        private bool timePaused = false;
-        private bool isDead = false;
-        public bool immobile = true;
-        public bool gamePaused = false;
-        public bool invulnerable = false;
+    // Main Player Variables
+    private Rigidbody2D playerRb;
+    private BoxCollider2D playerHitbox;
+    public float startingTime = 30;
+    private float remainingTime;
+    private bool timePaused = false;
+    private bool isDead = false;
+    public bool immobile = true;
+    public bool gamePaused = false;
+    public bool invulnerable = false;
 
-        public global::System.Single RemainingTime { get => remainingTime; set => remainingTime = value; }
-        public global::System.Boolean TimePaused { get => timePaused; set => timePaused = value; }
-        public global::System.Boolean IsDead { get => isDead; set => isDead = value; }
+    public global::System.Single RemainingTime { get => remainingTime; set => remainingTime = value; }
+    public global::System.Boolean TimePaused { get => timePaused; set => timePaused = value; }
+    public global::System.Boolean IsDead { get => isDead; set => isDead = value; }
 
-        // Interface Variables
-        private Animator anim;
-        public GameObject gameOverParent;
-        private AudioSource normalMusic;
-        public AudioSource shopMusic;
-        public bool isTutorial = false;
-        private GameObject pauseOverlay;
-        public GameObject healthPopup;
+    // Interface Variables
+    private Animator anim;
+    public GameObject gameOverParent;
+    private AudioSource normalMusic;
+    public AudioSource shopMusic;
+    public bool isTutorial = false;
+    private GameObject pauseOverlay;
+    public GameObject healthPopup;
 
-        // Jump Specific Variables
-        public int maxJumps = 2;
-        private int remainingJumps;
-        public float jumpSpeed;
-        private bool isJumping = false;
-        private float upSpeed = 0;
+    // Jump Specific Variables
+    public int maxJumps = 2;
+    private int remainingJumps;
+    public float jumpSpeed;
+    private bool isJumping = false;
+    private float upSpeed = 0;
 
-        // Dash Specific Variables
-        public int maxDashes = 1;
-        private int remainingDashes;
-        public float dashLength = 13.0f;
-        private bool isDashing = false;
-        private bool dashOnCooldown = false;
-        public float dashSpeed = 25.0f;
-        public float dashDuration = 0.05f;
-        public float dashCooldown = 0.1f;
-        private bool canBufferDash = true;
+    // Dash Specific Variables
+    public int maxDashes = 1;
+    private int remainingDashes;
+    public float dashLength = 13.0f;
+    private bool isDashing = false;
+    private bool dashOnCooldown = false;
+    public float dashSpeed = 25.0f;
+    public float dashDuration = 0.05f;
+    public float dashCooldown = 0.1f;
+    private bool canBufferDash = true;
 
     // Player Movement States
-        private bool facingRight = true;
-        private bool onPlatform = false;
-        private bool isGrounded = false;
-        private bool platformFalling = false;
-        private bool canGoLeft = false;
-        private bool canGoRight = false;
+    private bool facingRight = true;
+    private bool onPlatform = false;
+    private bool isGrounded = false;
+    private bool platformFalling = false;
+    private bool canGoLeft = false;
+    private bool canGoRight = false;
 
-        // Other Movement Variables
-        public float moveSpeed = 8.0f;
-        public float gravAcc;
-        public float maxGrav;
-        public LayerMask groundLayer;
-        public LayerMask platformLayer;
-        private DashDirection dashDirection;
-        private enum DashDirection 
-        {
-            Up,
-            Down,
-            Left,
-            Right,
-            UpRight,
-            DownRight,
-            DownLeft,
-            UpLeft
-        }
+    // Other Movement Variables
+    public float moveSpeed = 8.0f;
+    public float gravAcc;
+    public float maxGrav;
+    public LayerMask groundLayer;
+    public LayerMask platformLayer;
+    private DashDirection dashDirection;
+    private enum DashDirection
+    {
+        Up,
+        Down,
+        Left,
+        Right,
+        UpRight,
+        DownRight,
+        DownLeft,
+        UpLeft
+    }
 
-        // Attack Variables
-        public float attackDamage;
-        private Transform attackPoint1;
-        private Transform attackPoint2;
-        public LayerMask enemyLayers;
-        private float attackCooldown;
-        public float maxAttackCooldown = 0.5f;
-        public float lifeStealConstant = 0;
+    // Attack Variables
+    public float attackDamage;
+    private Transform attackPoint1;
+    private Transform attackPoint2;
+    public LayerMask enemyLayers;
+    private float attackCooldown;
+    public float maxAttackCooldown = 0.5f;
+    public float lifeStealConstant = 0;
 
-        // Sound Effects
-        public AudioSource dashSFX;
-        public AudioSource attackSFX;
-        public AudioSource damagedSFX;
-        public AudioSource killedSFX;
-        public AudioSource gameOverSFX;
-        public AudioSource getItemSFX;
+    // Sound Effects
+    public AudioSource dashSFX;
+    public AudioSource attackSFX;
+    public AudioSource damagedSFX;
+    public AudioSource killedSFX;
+    public AudioSource gameOverSFX;
+    public AudioSource getItemSFX;
 
-        private Vector3 knockDireciton;
-        private bool isKnocking = false;
-        public float knockInitial;
-        private float knockCurrent = 0.0f;
+    private Vector3 knockDireciton;
+    private bool isKnocking = false;
+    public float knockInitial;
+    private float knockCurrent = 0.0f;
 
 
 
@@ -132,15 +132,16 @@ public class PlayerController : MonoBehaviour
         if (!isDead && !immobile)
         {
             // Constantly reduce time until 0 at which point hit a game over point
-            if (remainingTime <= 0) 
+            if (remainingTime <= 0)
             {
                 isDead = true;
                 normalMusic = GameObject.Find("Music").GetComponent<AudioSource>();
                 normalMusic.Stop();
-                
+
                 GameObject shopMusicGO = GameObject.Find("Shop Music");
-                
-                if(shopMusicGO != null) {
+
+                if (shopMusicGO != null)
+                {
                     shopMusicGO.GetComponent<AudioSource>().Stop();
                 }
 
@@ -152,8 +153,8 @@ public class PlayerController : MonoBehaviour
                 gameOverText.transform.localScale = transform.localScale;
                 gameOverText.SetActive(true);
                 StartCoroutine(GameOver());
-            } 
-            else if(!timePaused && !isTutorial)
+            }
+            else if (!timePaused && !isTutorial)
             {
                 remainingTime -= Time.deltaTime;
             }
@@ -182,7 +183,7 @@ public class PlayerController : MonoBehaviour
             else if (shopMusic.volume >= 0f)
                 shopMusic.volume -= 0.05f;
         }
-        
+
     }
 
     // general movement handler
@@ -234,7 +235,7 @@ public class PlayerController : MonoBehaviour
                     transform.position = newPos;
                 }
             }
-            
+
             if (dashDirection == DashDirection.Left && canGoLeft)
             {
                 Vector3 newPos = transform.position + Vector3.left * dashSpeed * Time.deltaTime;
@@ -243,7 +244,7 @@ public class PlayerController : MonoBehaviour
                     transform.position = newPos;
                 }
             }
-            
+
 
         }
         else
@@ -275,7 +276,7 @@ public class PlayerController : MonoBehaviour
         {
             upSpeed = 0;
         }
-        
+
         if (!isGrounded)
         {
             if (upSpeed <= 0)
@@ -362,7 +363,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
+
     // down platform action handler
     private void DownPlatform()
     {
@@ -434,7 +435,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
+
     // wall collision check
     private void CheckWalls()
     {
@@ -442,7 +443,7 @@ public class PlayerController : MonoBehaviour
         Vector2 rayStartBottomRight = new Vector2(transform.position.x + 0.2f, transform.position.y - 0.9f);
         Vector2 rayStartTopLeft = new Vector2(transform.position.x - 0.2f, transform.position.y + 0.2f);
         Vector2 rayStartTopRight = new Vector2(transform.position.x + 0.2f, transform.position.y + 0.2f);
-        
+
         canGoLeft = !(Physics2D.Raycast(rayStartBottomLeft, Vector2.left, 0.15f, groundLayer).collider != null ||
             Physics2D.Raycast(rayStartTopLeft, Vector2.left, 0.15f, groundLayer).collider != null);
 
@@ -526,7 +527,7 @@ public class PlayerController : MonoBehaviour
         {
             updatedYPos = hitRight.point.y + 1.0f;
         }
-        else 
+        else
         {
             updatedYPos = hitLeft.point.y + 1.0f;
         }
@@ -539,36 +540,37 @@ public class PlayerController : MonoBehaviour
     // If attack is availabe, deal damage to any enemies inside the hurtbox
     private void Attack()
     {
-        if ((Input.GetKeyDown(KeyCode.X)) && attackCooldown <= 0) 
+        if ((Input.GetKeyDown(KeyCode.X)) && attackCooldown <= 0)
         {
             anim.SetTrigger("attack");
             attackSFX.Play();
 
-            Collider2D[] hitEnemies = Physics2D.OverlapAreaAll(attackPoint1.position,attackPoint2.position,enemyLayers);
-            
-            foreach(Collider2D enemy in hitEnemies) {
-                if (enemy.name == "Hitbox") 
+            Collider2D[] hitEnemies = Physics2D.OverlapAreaAll(attackPoint1.position, attackPoint2.position, enemyLayers);
+
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                if (enemy.name == "Hitbox")
                 {
                     enemy.GetComponentInParent<EnemyController>().TakeDamage(attackDamage);
                     Debug.Log("Hit: " + enemy.transform.parent.name);
-                } 
-                else if (enemy.tag == "Bullet") 
+                }
+                else if (enemy.tag == "Bullet")
                 {
                     enemy.GetComponent<EnemyController>().Die();
                     Debug.Log("die bullet");
-                } 
-                else if (enemy.tag == "OrbBoss") 
+                }
+                else if (enemy.tag == "OrbBoss")
                 {
                     enemy.GetComponent<OrbBossController>().TakeDamage(attackDamage);
-                } 
+                }
                 else if (enemy.tag == "SkeleBoss")
                 {
                     enemy.GetComponent<SkeleBoss>().TakeDamage(attackDamage);
                 }
-                else if (enemy.tag == "Dirt") 
+                else if (enemy.tag == "Dirt")
                 {
                     Destroy(enemy.gameObject);
-                } 
+                }
                 else if (enemy.tag == "WormBody")
                 {
                     enemy.GetComponent<WormBossBody>().health += attackDamage;
@@ -585,8 +587,8 @@ public class PlayerController : MonoBehaviour
             attackCooldown = maxAttackCooldown;
         }
         attackCooldown -= Time.deltaTime;
-        
-        
+
+
     }
 
     public void StartKnockBack(Vector3 enemyPos)
@@ -623,7 +625,7 @@ public class PlayerController : MonoBehaviour
                 {
                     transform.position = newPos;
                 }
-                
+
             }
 
             knockCurrent -= Time.deltaTime * 50;
@@ -646,7 +648,8 @@ public class PlayerController : MonoBehaviour
             if (shopMusic.clip != null)
                 shopMusic.UnPause();
 
-        } else
+        }
+        else
         {
             // pause game
             timePaused = true;
@@ -699,16 +702,18 @@ public class PlayerController : MonoBehaviour
             collision.gameObject.SetActive(false);
         }
 
-        if(!invulnerable) 
+        if (!invulnerable)
         {
-            if (collision.tag == "WormBody") {
+            if (collision.tag == "WormBody")
+            {
                 AlterTime(-3);
             }
-            if (collision.tag == "WormHead") {
+            if (collision.tag == "WormHead")
+            {
                 AlterTime(-6);
             }
         }
-        
+
     }
 
     // Unpause timer after exiting shops
@@ -727,7 +732,7 @@ public class PlayerController : MonoBehaviour
             if (timeGained > 0)
             {
                 // Instantiate little text thing that says '+15' or whatever
-                healthPopup.GetComponentInChildren<TextMeshProUGUI>().text = "+" + (timeGained + lifeStealConstant).ToString();  
+                healthPopup.GetComponentInChildren<TextMeshProUGUI>().text = "+" + (timeGained + lifeStealConstant).ToString();
                 remainingTime += lifeStealConstant;
                 killedSFX.Play();
             }
@@ -767,7 +772,7 @@ public class PlayerController : MonoBehaviour
 
         platformFalling = false;
     }
-    
+
     // Dash timing sequence
     private IEnumerator DashDelay()
     {
@@ -789,7 +794,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Cutscene handler
-    private IEnumerator CutScene() 
+    private IEnumerator CutScene()
     {
         timePaused = true;
 
@@ -819,7 +824,7 @@ public class PlayerController : MonoBehaviour
 
         Transform top = parent.transform.Find("TopSquare").transform;
         Transform bottom = parent.transform.Find("BottomSquare").transform;
-        while (top.localPosition.y > 70 )
+        while (top.localPosition.y > 70)
         {
             top.Translate(Vector2.down * Time.deltaTime * 2);
             bottom.Translate(Vector2.up * Time.deltaTime * 2);
@@ -841,8 +846,8 @@ public class PlayerController : MonoBehaviour
             case "BossFight3":
                 SceneManager.LoadScene("Level3", LoadSceneMode.Single);
                 break;
-            default: 
-                SceneManager.LoadScene("Level1 Alternate", LoadSceneMode.Single);
+            default:
+                SceneManager.LoadScene("Level1", LoadSceneMode.Single);
                 break;
         }
     }

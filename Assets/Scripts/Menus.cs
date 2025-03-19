@@ -59,6 +59,6 @@ public class Menus : MonoBehaviour
 
     private void Restart()
     {
-        SceneManager.LoadScene("Level1 Alternate", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
     }
 }
