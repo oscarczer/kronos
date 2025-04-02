@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 747112792542782857}
   - component: {fileID: 1658335125043060662}
   - component: {fileID: 8548304912364591286}
-  - component: {fileID: 3262871268211219659}
   - component: {fileID: 5175253158832876904}
   m_Layer: 3
   m_Name: Projectile
@@ -53,6 +52,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -90,7 +92,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!50 &1658335125043060662
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -101,8 +103,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 2cbc6f6b6b1c042aab6078b5c73fe681, type: 2}
   m_IncludeLayers:
@@ -123,6 +125,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496900197320900658}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -146,23 +149,10 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: -0.019541455, y: 0.1}
-  serializedVersion: 2
   m_Radius: 0.18374625
---- !u!114 &3262871268211219659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496900197320900658}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f170d64ee93594061906f3789ec4cbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthPopup: {fileID: 2066802814337847150, guid: 5b6537d4b582b4d79935cbd842595f51, type: 3}
 --- !u!114 &5175253158832876904
 MonoBehaviour:
   m_ObjectHideFlags: 0

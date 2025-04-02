@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class BossTransistor : MonoBehaviour
 {
-    
+
     // update player stats
     private GameObject playerObj;
     private PlayerController player;
@@ -35,7 +35,8 @@ public class BossTransistor : MonoBehaviour
         }
     }
 
-    public IEnumerator CreateScene() {
+    public IEnumerator CreateScene()
+    {
         if (oldScene.StartsWith("Level"))
         {
             var previousScene = SceneManager.GetSceneByName(oldScene);
@@ -52,12 +53,13 @@ public class BossTransistor : MonoBehaviour
             }
 
             SceneManager.MoveGameObjectToScene(playerObj.gameObject, scene);
-            
+
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(newScene));
             playerObj.transform.position = new Vector2(0, -7.5f);
             SceneManager.UnloadSceneAsync(oldScene);
-        } else
+        }
+        else
         {
             // Just finished a bossfight, therefore going to a new level
             SceneManager.LoadScene(newScene, LoadSceneMode.Single);

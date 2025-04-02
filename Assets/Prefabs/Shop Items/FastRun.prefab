@@ -65,9 +65,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gain more time per kill
+  m_text: 'Faster run
 
-    Cost: 30 seconds
+    Cost: 10 seconds
 
 
     [attack] to purchase'
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 4250623164229961061}
   - component: {fileID: 3627354202616544383}
   m_Layer: 0
-  m_Name: Life steal
+  m_Name: FastRun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -318,7 +318,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.8962264, g: 0.29169634, b: 0.32612062, a: 1}
+  m_Color: {r: 0.5159335, g: 0.4392157, b: 0.90588236, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -385,10 +385,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd99b5305dfe34197bd83c0aeaca218d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 30
+  cost: 10
   swordLengthIncrease: 0
   attackSpeedIncrease: 0
   dashLengthIncrease: 0
   swordDamageIncrease: 0
-  moveSpeedIncrease: 0
-  lifeStealIncrease: 3
+  moveSpeedIncrease: 3
+  lifeStealIncrease: 0

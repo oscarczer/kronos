@@ -540,7 +540,7 @@ public class PlayerController : MonoBehaviour
     // If attack is availabe, deal damage to any enemies inside the hurtbox
     private void Attack()
     {
-        if ((Input.GetKeyDown(KeyCode.X)) && attackCooldown <= 0)
+        if (Input.GetKeyDown(KeyCode.X) && attackCooldown <= 0)
         {
             anim.SetTrigger("attack");
             attackSFX.Play();
