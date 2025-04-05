@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    #region Global Variables
-    // Main Player Variables
+    #region  Global  Variables
+    //  Main  Player  Variables
     private Rigidbody2D playerRb;
     private BoxCollider2D playerHitbox;
     public float startingTime = 30;
@@ -18,11 +18,23 @@ public class PlayerController : MonoBehaviour
     public bool gamePaused = false;
     public bool invulnerable = false;
 
-    public global::System.Single RemainingTime { get => remainingTime; set => remainingTime = value; }
-    public global::System.Boolean TimePaused { get => timePaused; set => timePaused = value; }
-    public global::System.Boolean IsDead { get => isDead; set => isDead = value; }
+    public global::System.Single RemainingTime
+    {
+        get => remainingTime;
+        set => remainingTime = value;
+    }
+    public global::System.Boolean TimePaused
+    {
+        get => timePaused;
+        set => timePaused = value;
+    }
+    public global::System.Boolean IsDead
+    {
+        get => isDead;
+        set => isDead = value;
+    }
 
-    // Interface Variables
+    //  Interface  Variables
     private Animator anim;
     public GameObject gameOverParent;
     private AudioSource normalMusic;
@@ -31,14 +43,14 @@ public class PlayerController : MonoBehaviour
     private GameObject pauseOverlay;
     public GameObject healthPopup;
 
-    // Jump Specific Variables
+    //  Jump  Specific  Variables
     public int maxJumps = 2;
     private int remainingJumps;
     public float jumpSpeed;
     private bool isJumping = false;
     private float upSpeed = 0;
 
-    // Dash Specific Variables
+    //  Dash  Specific  Variables
     public int maxDashes = 1;
     private int remainingDashes;
     public float dashLength = 13.0f;
@@ -49,7 +61,7 @@ public class PlayerController : MonoBehaviour
     public float dashCooldown = 0.1f;
     private bool canBufferDash = true;
 
-    // Player Movement States
+    //  Player  Movement  States
     private bool facingRight = true;
     private bool onPlatform = false;
     private bool isGrounded = false;
@@ -57,13 +69,14 @@ public class PlayerController : MonoBehaviour
     private bool canGoLeft = false;
     private bool canGoRight = false;
 
-    // Other Movement Variables
+    //  Other  Movement  Variables
     public float moveSpeed = 8.0f;
     public float gravAcc;
     public float maxGrav;
     public LayerMask groundLayer;
     public LayerMask platformLayer;
     private DashDirection dashDirection;
+
     private enum DashDirection
     {
         Up,
@@ -73,10 +86,10 @@ public class PlayerController : MonoBehaviour
         UpRight,
         DownRight,
         DownLeft,
-        UpLeft
+        UpLeft,
     }
 
-    // Attack Variables
+    //  Attack  Variables
     public float attackDamage;
     private Transform attackPoint1;
     private Transform attackPoint2;
@@ -85,7 +98,7 @@ public class PlayerController : MonoBehaviour
     public float maxAttackCooldown = 0.5f;
     public float lifeStealConstant = 0;
 
-    // Sound Effects
+    //  Sound  Effects
     public AudioSource dashSFX;
     public AudioSource attackSFX;
     public AudioSource damagedSFX;
@@ -100,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    // Start is called before the first frame update
+    //  Start  is  called  before  the  first  frame  update
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
@@ -124,19 +137,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    //  Update  is  called  once  per  frame
     void Update()
     {
         if (!isDead && !immobile)
         {
-            // Constantly reduce time until 0 at which point hit a game over point
+            //  Constantly  reduce  time  until  0  at  which  point  hit  a  game  over  point
             if (remainingTime <= 0)
             {
                 isDead = true;
                 normalMusic = GameObject.Find("Music").GetComponent<AudioSource>();
                 normalMusic.Stop();
 
-                GameObject shopMusicGO = GameObject.Find("Shop Music");
+                GameObject shopMusicGO = GameObject.Find("Shop  Music");
 
                 if (shopMusicGO != null)
                 {
@@ -169,7 +182,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             HandlePause();
 
-        // shop audio handling
+        //  shop  audio  handling
         if (shopMusic != null)
         {
             normalMusic.volume = 1f - 2 * shopMusic.volume;
@@ -181,10 +194,9 @@ public class PlayerController : MonoBehaviour
             else if (shopMusic.volume >= 0f)
                 shopMusic.volume -= 0.05f;
         }
-
     }
 
-    // general movement handler
+    //  general  movement  handler
     private void Move()
     {
         bool right = Input.GetKey(KeyCode.RightArrow);
@@ -200,14 +212,14 @@ public class PlayerController : MonoBehaviour
         }
 
         /*
-        Vector2 direction = new Vector2(0, 0);
-        if (right)
+        Vector2  direction  =  new  Vector2(0,  0);
+        if  (right)
         {
-           direction = new Vector2(1, 0);
+              direction  =  new  Vector2(1,  0);
         }
-        else if (left)
+        else  if  (left)
         {
-           direction = new Vector2(-1, 0);
+              direction  =  new  Vector2(-1,  0);
         }
         */
 
@@ -222,7 +234,7 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector2(-1, 1);
         }
 
-        // Dashing code:
+        //  Dashing  code:
         if (isDashing)
         {
             if (dashDirection == DashDirection.Right && canGoRight)
@@ -242,8 +254,6 @@ public class PlayerController : MonoBehaviour
                     transform.position = newPos;
                 }
             }
-
-
         }
         else
         {
@@ -254,7 +264,6 @@ public class PlayerController : MonoBehaviour
                 {
                     transform.position = newPos;
                 }
-
             }
             else if (left && canGoLeft)
             {
@@ -267,7 +276,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // jump action handler
+    //  jump  action  handler
     private void Jump()
     {
         if (isDashing)
@@ -281,18 +290,18 @@ public class PlayerController : MonoBehaviour
             {
                 isJumping = false;
             }
-            // Jump higher if we keep holding c
+            //  Jump  higher  if  we  keep  holding  c
             if (isJumping && Input.GetKey(KeyCode.Z) && !isKnocking)
             {
                 upSpeed -= Time.deltaTime * 0.54f * gravAcc;
-                // going up still:
+                //  going  up  still:
                 Vector3 newPos = transform.position + Vector3.up * upSpeed * Time.deltaTime;
                 if (FutureCheckCeiling(newPos))
                 {
                     transform.position = newPos;
                 }
             }
-            // Fall faster if we have stopped holding jump
+            //  Fall  faster  if  we  have  stopped  holding  jump
             else
             {
                 if (upSpeed > maxGrav)
@@ -322,21 +331,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // dash action handler
+    //  dash  action  handler
     private void Dash()
     {
-        // Reset dash buffer when dash button is released
+        //  Reset  dash  buffer  when  dash  button  is  released
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             canBufferDash = true;
         }
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            // Dash code:
+            //  Dash  code:
             if (remainingDashes > 0 && !dashOnCooldown && canBufferDash)
             {
                 dashSFX.Play();
-                // make invulnerable while dashing
+                //  make  invulnerable  while  dashing
                 invulnerable = true;
 
                 canBufferDash = false;
@@ -344,7 +353,7 @@ public class PlayerController : MonoBehaviour
                 isDashing = true;
                 anim.SetTrigger("dash");
 
-                //float vertical = Input.GetAxis("Vertical");
+                //float  vertical  =  Input.GetAxis("Vertical");
 
                 bool right = Input.GetKey(KeyCode.RightArrow);
 
@@ -362,7 +371,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // down platform action handler
+    //  down  platform  action  handler
     private void DownPlatform()
     {
         if (onPlatform && (Input.GetKey(KeyCode.DownArrow)))
@@ -374,7 +383,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // ground collision check
+    //  ground  collision  check
     private void CheckGround()
     {
         if (platformFalling)
@@ -385,26 +394,52 @@ public class PlayerController : MonoBehaviour
         if (!isJumping)
         {
             bool previouslyGrounded = isGrounded || onPlatform;
-            Vector2 rayStartLeft = new Vector2(transform.position.x - 0.2f, transform.position.y - 0.8f);
-            Vector2 rayStartRight = new Vector2(transform.position.x + 0.2f, transform.position.y - 0.8f);
+            Vector2 rayStartLeft = new Vector2(
+                transform.position.x - 0.2f,
+                transform.position.y - 0.8f
+            );
+            Vector2 rayStartRight = new Vector2(
+                transform.position.x + 0.2f,
+                transform.position.y - 0.8f
+            );
 
-            // Check we aren't inside a platform:
-            //if (Physics2D.Raycast(rayStartLeft, Vector2.up, 0.15f, platformLayer).collider != null || 
-            //    Physics2D.Raycast(rayStartRight, Vector2.up, 0.15f, platformLayer).collider != null)
+            //  Check  we  aren't  inside  a  platform:
+            //if  (Physics2D.Raycast(rayStartLeft,  Vector2.up,  0.15f,  platformLayer).collider  !=  null  ||
+            //        Physics2D.Raycast(rayStartRight,  Vector2.up,  0.15f,  platformLayer).collider  !=  null)
             //{
-            //    return;
+            //        return;
             //}
 
-            RaycastHit2D groundLeft = Physics2D.Raycast(rayStartLeft, Vector2.down, 0.35f, groundLayer);
-            RaycastHit2D groundRight = Physics2D.Raycast(rayStartRight, Vector2.down, 0.35f, groundLayer);
-            RaycastHit2D platformLeft = Physics2D.Raycast(rayStartLeft, Vector2.down, 0.35f, platformLayer);
-            RaycastHit2D platformRight = Physics2D.Raycast(rayStartRight, Vector2.down, 0.35f, platformLayer);
+            RaycastHit2D groundLeft = Physics2D.Raycast(
+                rayStartLeft,
+                Vector2.down,
+                0.35f,
+                groundLayer
+            );
+            RaycastHit2D groundRight = Physics2D.Raycast(
+                rayStartRight,
+                Vector2.down,
+                0.35f,
+                groundLayer
+            );
+            RaycastHit2D platformLeft = Physics2D.Raycast(
+                rayStartLeft,
+                Vector2.down,
+                0.35f,
+                platformLayer
+            );
+            RaycastHit2D platformRight = Physics2D.Raycast(
+                rayStartRight,
+                Vector2.down,
+                0.35f,
+                platformLayer
+            );
 
             isGrounded = groundLeft.collider != null || groundRight.collider != null;
 
             onPlatform = platformLeft.collider != null || platformRight.collider != null;
 
-            // If we fell off a platform, don't allow double jump:
+            //  If  we  fell  off  a  platform,  don't  allow  double  jump:
             if (!isGrounded && previouslyGrounded)
             {
                 remainingJumps = maxJumps - 1;
@@ -419,57 +454,100 @@ public class PlayerController : MonoBehaviour
                 landPosition(platformLeft, platformRight);
             }
         }
-        // Checking ceiling:
+        //  Checking  ceiling:
         else
         {
-            Vector2 rayStartLeft = new Vector2(transform.position.x - 0.2f, transform.position.y + 0.2f);
-            Vector2 rayStartRight = new Vector2(transform.position.x + 0.2f, transform.position.y + 0.2f);
+            Vector2 rayStartLeft = new Vector2(
+                transform.position.x - 0.2f,
+                transform.position.y + 0.2f
+            );
+            Vector2 rayStartRight = new Vector2(
+                transform.position.x + 0.2f,
+                transform.position.y + 0.2f
+            );
 
-            if (Physics2D.Raycast(rayStartLeft, Vector2.up, 0.15f, groundLayer).collider != null
-                || Physics2D.Raycast(rayStartRight, Vector2.up, 0.15f, groundLayer).collider != null)
+            if (
+                Physics2D.Raycast(rayStartLeft, Vector2.up, 0.15f, groundLayer).collider != null
+                || Physics2D.Raycast(rayStartRight, Vector2.up, 0.15f, groundLayer).collider != null
+            )
             {
-                // Hit head on ceiling
+                //  Hit  head  on  ceiling
                 upSpeed = 0;
             }
         }
     }
 
-    // wall collision check
+    //  wall  collision  check
     private void CheckWalls()
     {
-        Vector2 rayStartBottomLeft = new Vector2(transform.position.x - 0.2f, transform.position.y - 0.9f);
-        Vector2 rayStartBottomRight = new Vector2(transform.position.x + 0.2f, transform.position.y - 0.9f);
-        Vector2 rayStartTopLeft = new Vector2(transform.position.x - 0.2f, transform.position.y + 0.2f);
-        Vector2 rayStartTopRight = new Vector2(transform.position.x + 0.2f, transform.position.y + 0.2f);
+        Vector2 rayStartBottomLeft = new Vector2(
+            transform.position.x - 0.2f,
+            transform.position.y - 0.9f
+        );
+        Vector2 rayStartBottomRight = new Vector2(
+            transform.position.x + 0.2f,
+            transform.position.y - 0.9f
+        );
+        Vector2 rayStartTopLeft = new Vector2(
+            transform.position.x - 0.2f,
+            transform.position.y + 0.2f
+        );
+        Vector2 rayStartTopRight = new Vector2(
+            transform.position.x + 0.2f,
+            transform.position.y + 0.2f
+        );
 
-        canGoLeft = !(Physics2D.Raycast(rayStartBottomLeft, Vector2.left, 0.15f, groundLayer).collider != null ||
-            Physics2D.Raycast(rayStartTopLeft, Vector2.left, 0.15f, groundLayer).collider != null);
+        canGoLeft = !(
+            Physics2D.Raycast(rayStartBottomLeft, Vector2.left, 0.15f, groundLayer).collider != null
+            || Physics2D.Raycast(rayStartTopLeft, Vector2.left, 0.15f, groundLayer).collider != null
+        );
 
-        canGoRight = !(Physics2D.Raycast(rayStartBottomRight, Vector2.right, 0.15f, groundLayer).collider != null ||
-            Physics2D.Raycast(rayStartTopRight, Vector2.right, 0.15f, groundLayer).collider != null);
+        canGoRight = !(
+            Physics2D.Raycast(rayStartBottomRight, Vector2.right, 0.15f, groundLayer).collider
+                != null
+            || Physics2D.Raycast(rayStartTopRight, Vector2.right, 0.15f, groundLayer).collider
+                != null
+        );
     }
 
     private bool FutureWallCheck(Vector3 newPosition, bool right)
     {
         if (right)
         {
-            Vector2 rayStartTopRight = new Vector2(transform.position.x + 0.2f, transform.position.y + 0.2f);
-            Vector2 rayStartBottomRight = new Vector2(transform.position.x + 0.2f, transform.position.y - 0.9f);
+            Vector2 rayStartTopRight = new Vector2(
+                transform.position.x + 0.2f,
+                transform.position.y + 0.2f
+            );
+            Vector2 rayStartBottomRight = new Vector2(
+                transform.position.x + 0.2f,
+                transform.position.y - 0.9f
+            );
 
-            return !(Physics2D.Raycast(rayStartBottomRight, Vector2.right, 0.15f, groundLayer).collider != null ||
-            Physics2D.Raycast(rayStartTopRight, Vector2.right, 0.15f, groundLayer).collider != null);
-
+            return !(
+                Physics2D.Raycast(rayStartBottomRight, Vector2.right, 0.15f, groundLayer).collider
+                    != null
+                || Physics2D.Raycast(rayStartTopRight, Vector2.right, 0.15f, groundLayer).collider
+                    != null
+            );
         }
         else
         {
-            Vector2 rayStartBottomLeft = new Vector2(transform.position.x - 0.2f, transform.position.y - 0.9f);
-            Vector2 rayStartTopLeft = new Vector2(transform.position.x - 0.2f, transform.position.y + 0.2f);
+            Vector2 rayStartBottomLeft = new Vector2(
+                transform.position.x - 0.2f,
+                transform.position.y - 0.9f
+            );
+            Vector2 rayStartTopLeft = new Vector2(
+                transform.position.x - 0.2f,
+                transform.position.y + 0.2f
+            );
 
-            return !(Physics2D.Raycast(rayStartBottomLeft, Vector2.left, 0.15f, groundLayer).collider != null ||
-            Physics2D.Raycast(rayStartTopLeft, Vector2.left, 0.15f, groundLayer).collider != null);
-
+            return !(
+                Physics2D.Raycast(rayStartBottomLeft, Vector2.left, 0.15f, groundLayer).collider
+                    != null
+                || Physics2D.Raycast(rayStartTopLeft, Vector2.left, 0.15f, groundLayer).collider
+                    != null
+            );
         }
-
     }
 
     private bool FutureCheckGround(Vector3 newPosition)
@@ -479,28 +557,56 @@ public class PlayerController : MonoBehaviour
             return true;
         }
 
-        Vector2 rayStartLeft = new Vector2(transform.position.x - 0.2f, transform.position.y - 0.8f);
-        Vector2 rayStartRight = new Vector2(transform.position.x + 0.2f, transform.position.y - 0.8f);
-
+        Vector2 rayStartLeft = new Vector2(
+            transform.position.x - 0.2f,
+            transform.position.y - 0.8f
+        );
+        Vector2 rayStartRight = new Vector2(
+            transform.position.x + 0.2f,
+            transform.position.y - 0.8f
+        );
 
         RaycastHit2D groundLeft = Physics2D.Raycast(rayStartLeft, Vector2.down, 0.35f, groundLayer);
-        RaycastHit2D groundRight = Physics2D.Raycast(rayStartRight, Vector2.down, 0.35f, groundLayer);
-        RaycastHit2D platformLeft = Physics2D.Raycast(rayStartLeft, Vector2.down, 0.35f, platformLayer);
-        RaycastHit2D platformRight = Physics2D.Raycast(rayStartRight, Vector2.down, 0.35f, platformLayer);
+        RaycastHit2D groundRight = Physics2D.Raycast(
+            rayStartRight,
+            Vector2.down,
+            0.35f,
+            groundLayer
+        );
+        RaycastHit2D platformLeft = Physics2D.Raycast(
+            rayStartLeft,
+            Vector2.down,
+            0.35f,
+            platformLayer
+        );
+        RaycastHit2D platformRight = Physics2D.Raycast(
+            rayStartRight,
+            Vector2.down,
+            0.35f,
+            platformLayer
+        );
 
-        return !((groundLeft.collider != null || groundRight.collider != null) ||
-            (platformLeft.collider != null || platformRight.collider != null));
-
-
+        return !(
+            (groundLeft.collider != null || groundRight.collider != null)
+            || (platformLeft.collider != null || platformRight.collider != null)
+        );
     }
 
     private bool FutureCheckCeiling(Vector3 newPosition)
     {
-        Vector2 rayStartLeft = new Vector2(transform.position.x - 0.2f, transform.position.y + 0.2f);
-        Vector2 rayStartRight = new Vector2(transform.position.x + 0.2f, transform.position.y + 0.2f);
+        Vector2 rayStartLeft = new Vector2(
+            transform.position.x - 0.2f,
+            transform.position.y + 0.2f
+        );
+        Vector2 rayStartRight = new Vector2(
+            transform.position.x + 0.2f,
+            transform.position.y + 0.2f
+        );
 
-        if (Physics2D.Raycast(rayStartLeft, Vector2.up, 0.15f, groundLayer).collider != null
-            || Physics2D.Raycast(rayStartRight, Vector2.up, 0.15f, groundLayer).collider != null)
+        if (
+            Physics2D.Raycast(rayStartLeft, Vector2.up, 0.15f, groundLayer).collider != null
+            || Physics2D.Raycast(rayStartRight, Vector2.up, 0.15f, groundLayer).collider != null
+        )
         {
             return false;
         }
@@ -508,11 +614,9 @@ public class PlayerController : MonoBehaviour
         {
             return true;
         }
-
-
     }
 
-    // helper function for calculating landing position
+    //  helper  function  for  calculating  landing  position
     private void landPosition(RaycastHit2D hitLeft, RaycastHit2D hitRight)
     {
         float updatedYPos;
@@ -535,7 +639,7 @@ public class PlayerController : MonoBehaviour
         remainingDashes = maxDashes;
     }
 
-    // If attack is availabe, deal damage to any enemies inside the hurtbox
+    //  If  attack  is  availabe,  deal  damage  to  any  enemies  inside  the  hurtbox
     private void Attack()
     {
         if (Input.GetKeyDown(KeyCode.X) && attackCooldown <= 0)
@@ -543,7 +647,11 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger("attack");
             attackSFX.Play();
 
-            Collider2D[] hitEnemies = Physics2D.OverlapAreaAll(attackPoint1.position, attackPoint2.position, enemyLayers);
+            Collider2D[] hitEnemies = Physics2D.OverlapAreaAll(
+                attackPoint1.position,
+                attackPoint2.position,
+                enemyLayers
+            );
 
             foreach (Collider2D enemy in hitEnemies)
             {
@@ -583,8 +691,6 @@ public class PlayerController : MonoBehaviour
             attackCooldown = maxAttackCooldown;
         }
         attackCooldown -= Time.deltaTime;
-
-
     }
 
     public void StartKnockBack(Vector3 enemyPos)
@@ -599,7 +705,6 @@ public class PlayerController : MonoBehaviour
         {
             knockDireciton = Vector3.right;
         }
-
     }
 
     private void KnockBack()
@@ -608,7 +713,8 @@ public class PlayerController : MonoBehaviour
         {
             if (knockDireciton.x < 0 && canGoLeft)
             {
-                Vector3 newPos = transform.position + knockDireciton * knockCurrent * Time.deltaTime;
+                Vector3 newPos =
+                    transform.position + knockDireciton * knockCurrent * Time.deltaTime;
                 if (FutureWallCheck(newPos, false))
                 {
                     transform.position = newPos;
@@ -616,12 +722,12 @@ public class PlayerController : MonoBehaviour
             }
             else if (knockDireciton.x > 0 && canGoRight)
             {
-                Vector3 newPos = transform.position + knockDireciton * knockCurrent * Time.deltaTime;
+                Vector3 newPos =
+                    transform.position + knockDireciton * knockCurrent * Time.deltaTime;
                 if (FutureWallCheck(newPos, true))
                 {
                     transform.position = newPos;
                 }
-
             }
 
             knockCurrent -= Time.deltaTime * 50;
@@ -636,65 +742,63 @@ public class PlayerController : MonoBehaviour
     {
         if (gamePaused)
         {
-            // unpause
+            //  unpause
             timePaused = false;
             immobile = false;
             pauseOverlay.SetActive(false);
             normalMusic.UnPause();
             if (shopMusic.clip != null)
                 shopMusic.UnPause();
-
         }
         else
         {
-            // pause game
+            //  pause  game
             timePaused = true;
             immobile = true;
             pauseOverlay.SetActive(true);
             normalMusic.Pause();
             if (shopMusic.clip != null)
                 shopMusic.Pause();
-            // other things that need to be done:
-            // stop enemies from attacking
-
+            //  other  things  that  need  to  be  done:
+            //  stop  enemies  from  attacking
         }
         gamePaused = !gamePaused;
     }
 
-    // Pause the timer when in shop
+    //  Pause  the  timer  when  in  shop
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Pause Timer")
+        if (collision.gameObject.name == "Pause  Timer")
         {
             timePaused = true;
         }
 
-        if (collision.gameObject.name == "Start Game Trigger")
+        if (collision.gameObject.name == "Start  Game  Trigger")
         {
-            // only do this the first time
+            //  only  do  this  the  first  time
             if (!normalMusic.isPlaying)
             {
-                // Set timer to starting time
+                //  Set  timer  to  starting  time
                 remainingTime = startingTime + 1;
                 timePaused = false;
-                // make timer visible
+                //  make  timer  visible
                 GameObject.Find("GUI").transform.GetChild(0).gameObject.SetActive(true);
 
-                // hopefully not starting the songs at the same time reduces lag
+                //  hopefully  not  starting  the  songs  at  the  same  time  reduces  lag
                 normalMusic.Play();
                 shopMusic.PlayDelayed(1f);
             }
         }
-        if (collision.gameObject.name == "Start Level Trigger")
+        if (collision.gameObject.name == "Start  Level  Trigger")
         {
             isTutorial = false;
-            // Set timer to starting time
+            //  Set  timer  to  starting  time
             remainingTime = startingTime + 1;
             timePaused = false;
-            // make timer visible
+            //  make  timer  visible
             GameObject.Find("GUI").transform.GetChild(0).gameObject.SetActive(true);
 
-            // make sure this cant be activated again
+            //  make  sure  this  cant  be  activated  again
             collision.gameObject.SetActive(false);
         }
 
@@ -709,17 +813,16 @@ public class PlayerController : MonoBehaviour
                 AlterTime(-6);
             }
         }
-
     }
 
-    // Unpause timer after exiting shops
+    //  Unpause  timer  after  exiting  shops
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Pause Timer")
+        if (collision.gameObject.name == "Pause  Timer")
             timePaused = false;
     }
 
-    // function for altering and displaying health
+    //  function  for  altering  and  displaying  health
     public void AlterTime(float timeGained)
     {
         if (!isTutorial)
@@ -727,14 +830,15 @@ public class PlayerController : MonoBehaviour
             remainingTime += timeGained;
             if (timeGained > 0)
             {
-                // Instantiate little text thing that says '+15' or whatever
-                healthPopup.GetComponentInChildren<TextMeshProUGUI>().text = "+" + (timeGained + lifeStealConstant).ToString();
+                //  Instantiate  little  text  thing  that  says  '+15'  or  whatever
+                healthPopup.GetComponentInChildren<TextMeshProUGUI>().text =
+                    "+" + (timeGained + lifeStealConstant).ToString();
                 remainingTime += lifeStealConstant;
                 killedSFX.Play();
             }
             else
             {
-                // Instantiate little text thing that says '+15' or whatever
+                //  Instantiate  little  text  thing  that  says  '+15'  or  whatever
                 healthPopup.GetComponentInChildren<TextMeshProUGUI>().text = timeGained.ToString();
                 anim.SetTrigger("hit");
                 damagedSFX.Play();
@@ -752,7 +856,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // i-frames
+    //  i-frames
     private IEnumerator IFrames(float timeInvulnerable)
     {
         invulnerable = true;
@@ -760,61 +864,60 @@ public class PlayerController : MonoBehaviour
         invulnerable = false;
     }
 
-    // Platform falling timing sequence
+    //  Platform  falling  timing  sequence
     private IEnumerator PlatformFallDelay()
     {
-        // Wait for 0.05 seconds.
+        //  Wait  for  0.05  seconds.
         yield return new WaitForSeconds(0.3f);
 
         platformFalling = false;
     }
 
-    // Dash timing sequence
+    //  Dash  timing  sequence
     private IEnumerator DashDelay()
     {
-        // Dash
+        //  Dash
         yield return new WaitForSeconds(dashDuration);
 
-        // Dashing has finised
+        //  Dashing  has  finised
         isDashing = false;
         dashOnCooldown = true;
 
-        // Give player a little bit of time before we turn hitbox back on
+        //  Give  player  a  little  bit  of  time  before  we  turn  hitbox  back  on
         yield return new WaitForSeconds(0.1f);
         invulnerable = false;
 
-        // Dash cooldown
+        //  Dash  cooldown
         yield return new WaitForSeconds(dashCooldown);
         dashOnCooldown = false;
-
     }
 
-    // Cutscene handler
+    //  Cutscene  handler
     private IEnumerator CutScene()
     {
         timePaused = true;
 
-        // Set fall speed to be slower than normal, player maintains control
+        //  Set  fall  speed  to  be  slower  than  normal,  player  maintains  control
         maxGrav = maxGrav / 1.5f;
         remainingJumps = 0;
         remainingDashes = 0;
 
-        // wait to hit ground
+        //  wait  to  hit  ground
         while (!isGrounded)
         {
             yield return null;
         }
-        // set fall speed back to normal
+        //  set  fall  speed  back  to  normal
         maxGrav = maxGrav * 1.5f;
         yield return null;
     }
 
-    // Game Over cutscene
+    //  Game  Over  cutscene
     private IEnumerator GameOver()
     {
         yield return new WaitForSeconds(1f);
 
-        // Screen closing thingy
+        //  Screen  closing  thingy
         GameObject parent = gameOverParent.transform.Find("GameOverTransition").gameObject;
         parent.SetActive(true);
 

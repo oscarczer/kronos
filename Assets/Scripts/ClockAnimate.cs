@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ClockAnimate : MonoBehaviour
-{ 
+{
     // we need to make the hands rotate
     private Transform hoursHand;
     private Transform secondsHand;
@@ -17,7 +17,6 @@ public class ClockAnimate : MonoBehaviour
     {
         hoursHand = transform.GetChild(0).GetChild(0);
         secondsHand = transform.GetChild(0).GetChild(1);
-
     }
 
     // Update is called once per frame

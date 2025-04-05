@@ -9,8 +9,8 @@ public class OrbProjectileController : MonoBehaviour
     private PlayerController player;
     public Vector2 thrust;
     private float speed = 5f;
-
     public GameObject healthPopup;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,6 @@ public class OrbProjectileController : MonoBehaviour
         rb.linearVelocity = speed * thrust;
         Physics2D.IgnoreLayerCollision(3, 3); // enemy / enemy
         Physics2D.IgnoreLayerCollision(3, 6); // enemy / ground
-
     }
 
     // Update is called once per frame

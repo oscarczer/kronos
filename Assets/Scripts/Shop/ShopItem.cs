@@ -17,7 +17,6 @@ public class ShopItem : MonoBehaviour
     public float moveSpeedIncrease;
     public float lifeStealIncrease;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +33,6 @@ public class ShopItem : MonoBehaviour
             // confirm that the text is visible
             if (transform.GetChild(0).gameObject.activeSelf)
             {
-
                 // pay for the item
                 player.RemainingTime -= cost;
                 player.getItemSFX.Play();
@@ -74,6 +72,7 @@ public class ShopItem : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(true);
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         string objname = collision.gameObject.name;

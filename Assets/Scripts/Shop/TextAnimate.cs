@@ -21,7 +21,6 @@ public class TextAnimate : MonoBehaviour
     void Update()
     {
         text.maxVisibleCharacters = charsVisible;
-
     }
 
     // Text only displays when player is on this screen
@@ -33,10 +32,12 @@ public class TextAnimate : MonoBehaviour
             switch (SceneManager.GetActiveScene().name)
             {
                 case "Level2":
-                    text.text = "Need more upgrades?\nI have just what you need!\nMake sure to spend your time wisely ;)";
+                    text.text =
+                        "Need more upgrades?\nI have just what you need!\nMake sure to spend your time wisely ;)";
                     break;
                 default: // Level1
-                    text.text = "Welcome to my shop!\nHere I can provide you with upgrades.\nBut be quick, time is money :)";
+                    text.text =
+                        "Welcome to my shop!\nHere I can provide you with upgrades.\nBut be quick, time is money :)";
                     break;
             }
 
@@ -44,6 +45,7 @@ public class TextAnimate : MonoBehaviour
             StartCoroutine(TextDelayStart());
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Player")

@@ -18,10 +18,15 @@ public class CameraController : MonoBehaviour
         currentPosY = transform.position.y;
         blackBars.SetActive(true);
     }
-   
+
     private void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(currentPosX, currentPosY, transform.position.z), ref velocity, speed);
+        transform.position = Vector3.SmoothDamp(
+            transform.position,
+            new Vector3(currentPosX, currentPosY, transform.position.z),
+            ref velocity,
+            speed
+        );
 
         // When player goes out of camera view, start a screen transition
         if (playerTransform.transform.position.x > currentPosX + 13f)

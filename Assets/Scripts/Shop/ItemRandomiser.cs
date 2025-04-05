@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class ItemRandomiser : MonoBehaviour
 {
-
     // all possible shop items
     public GameObject[] items;
 
     // shopkeeper text
     public TextMeshProUGUI keeperText;
     public bool boughtSomething = false;
-
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +21,7 @@ public class ItemRandomiser : MonoBehaviour
         // pick 3 random shop items, and put them in the shop
         shuffle(items);
 
-        Vector3 item1pos = new Vector3(pos.x-4, pos.y,pos.z);
+        Vector3 item1pos = new Vector3(pos.x - 4, pos.y, pos.z);
         Instantiate(items[0], item1pos, rot, this.transform);
 
         Vector3 item2pos = new Vector3(pos.x, pos.y, pos.z);
@@ -44,5 +42,4 @@ public class ItemRandomiser : MonoBehaviour
             array[rand] = temp;
         }
     }
-
 }

@@ -13,9 +13,21 @@ public class FollowingEnemy : EnemyController
     private float screenWidth = 25f;
     private float screenHeight = 10f;
 
-    public Transform Cam { get => cam; set => cam = value; }
-    public global::System.Single ScreenWidth { get => screenWidth; set => screenWidth = value; }
-    public global::System.Single ScreenHeight { get => screenHeight; set => screenHeight = value; }
+    public Transform Cam
+    {
+        get => cam;
+        set => cam = value;
+    }
+    public global::System.Single ScreenWidth
+    {
+        get => screenWidth;
+        set => screenWidth = value;
+    }
+    public global::System.Single ScreenHeight
+    {
+        get => screenHeight;
+        set => screenHeight = value;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -51,12 +63,11 @@ public class FollowingEnemy : EnemyController
                 playerController.AlterTime(attackDamage);
                 playerController.StartKnockBack(transform.position);
 
-
                 AttackCooldown = maxAttackCooldown;
             }
         }
     }
-    
+
     // Only start chasing once player is within a certain range of the enemy
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -85,10 +96,9 @@ public class FollowingEnemy : EnemyController
             Cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         }
 
-        return transform.position.x < Cam.position.x - halfWidth ||
-            transform.position.x > Cam.position.x + halfWidth ||
-            transform.position.y < Cam.position.y - halfHeight ||
-            transform.position.y > Cam.position.y + halfHeight;
+        return transform.position.x < Cam.position.x - halfWidth
+            || transform.position.x > Cam.position.x + halfWidth
+            || transform.position.y < Cam.position.y - halfHeight
+            || transform.position.y > Cam.position.y + halfHeight;
     }
-
 }

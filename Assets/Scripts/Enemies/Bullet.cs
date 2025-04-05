@@ -12,7 +12,6 @@ public class Bullet : FollowingEnemy
     // Start is called before the first frame update
     void Start()
     {
-
         Player = GameObject.FindGameObjectWithTag("Player");
         Cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         Anim = GetComponent<Animator>();
@@ -22,15 +21,18 @@ public class Bullet : FollowingEnemy
     // Update is called once per frame
     void Update()
     {
-        if(!Player.GetComponent<PlayerController>().IsDead) {
+        if (!Player.GetComponent<PlayerController>().IsDead)
+        {
             StopChasingOffScreen();
-            
+
             // Once bullet is alive for a certain period it should be destroyed
-            if (aliveTime < maxAliveTime) 
+            if (aliveTime < maxAliveTime)
             {
                 Chase();
                 aliveTime += Time.deltaTime;
-            } else {
+            }
+            else
+            {
                 Die();
             }
         }
@@ -40,16 +42,20 @@ public class Bullet : FollowingEnemy
     private void Chase()
     {
         FacePlayer();
-        transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, moveSpeed * Time.deltaTime);
-    }   
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            Player.transform.position,
+            moveSpeed * Time.deltaTime
+        );
+    }
 
     // Destroy the bullet and deal damage if it comes into contact with the player
     public override void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player") 
+        if (collision.gameObject.tag == "Player")
         {
             PlayerController playerController = Player.GetComponent<PlayerController>();
-            
+
             if (playerController.invulnerable) // dashing or something
             {
                 // don't want to play the explode animation
@@ -69,11 +75,11 @@ public class Bullet : FollowingEnemy
     {
         Vector2 direction = Player.transform.position - transform.position;
         float angle = Vector2.SignedAngle(Vector2.right, direction);
-        transform.eulerAngles = new Vector3 (0, 0, angle);
+        transform.eulerAngles = new Vector3(0, 0, angle);
     }
-    
+
     // Destroy the bullet
-    public override void Die() 
+    public override void Die()
     {
         Anim.SetTrigger("explode");
         explodeSFX.Play();

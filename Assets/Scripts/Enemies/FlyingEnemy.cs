@@ -18,7 +18,7 @@ public class FlyingEnemy : FollowingEnemy
     // Update is called once per frame
     void Update()
     {
-        if (chase && !Player.GetComponent<PlayerController>().IsDead) 
+        if (chase && !Player.GetComponent<PlayerController>().IsDead)
         {
             Chase();
             StopChasingOffScreen();
@@ -27,13 +27,16 @@ public class FlyingEnemy : FollowingEnemy
         {
             KnockbackHandler();
         }
-
     }
 
     // Constantly move towards the Player
     private void Chase()
     {
         FacePlayer();
-        transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, moveSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            Player.transform.position,
+            moveSpeed * Time.deltaTime
+        );
     }
 }

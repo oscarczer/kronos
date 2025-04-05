@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class TimerDisplay : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class TimerDisplay : MonoBehaviour
     private GameObject player;
 
     private float previousTime;
+
     // animating is 0 for false, 1 for animating up, -1 for animating down
     private int animating = 0;
 
@@ -34,10 +35,10 @@ public class TimerDisplay : MonoBehaviour
         }
         time = player.GetComponent<PlayerController>().RemainingTime;
 
-        if (animating == 0 && Mathf.Abs(previousTime-time) >= 5)
+        if (animating == 0 && Mathf.Abs(previousTime - time) >= 5)
         {
             // big change
-            animating = (int) Mathf.Sign(time-previousTime);
+            animating = (int)Mathf.Sign(time - previousTime);
             StartCoroutine(TimerAnimator());
         }
 
@@ -67,10 +68,11 @@ public class TimerDisplay : MonoBehaviour
     void UpdateTimerColour()
     {
         Color newColour;
-        if (time < 10) {
+        if (time < 10)
+        {
             newColour = new Color(1f, 0f, 0f, 1f);
-        } 
-        else 
+        }
+        else
         {
             newColour = new Color(0f, 0f, 0f, 1f);
         }
@@ -78,7 +80,7 @@ public class TimerDisplay : MonoBehaviour
         if (animating == 1)
         {
             newColour = new Color(0f, 0.3f, 0f, 1f);
-        } 
+        }
         else if (animating == -1)
         {
             newColour = new Color(0.3f, 0f, 0f, 1f);
@@ -102,7 +104,7 @@ public class TimerDisplay : MonoBehaviour
             {
                 // animation has finished, return to normal
                 animating = 0;
-            } 
+            }
             else
             {
                 // call this again if the animation has not finished

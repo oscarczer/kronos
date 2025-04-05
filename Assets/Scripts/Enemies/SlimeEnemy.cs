@@ -13,7 +13,7 @@ public class SlimeEnemy : EnemyController
     private float maxJumpSpeed = 1.6f;
     private Vector3 targetPos;
 
-    // Start is called before the first frame update
+    //  Start  is  called  before  the  first  frame  update
     void Start()
     {
         positionIndex = 0;
@@ -23,7 +23,7 @@ public class SlimeEnemy : EnemyController
         Anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
+    //  Update  is  called  once  per  frame
     void Update()
     {
         if (canJump)
@@ -37,14 +37,11 @@ public class SlimeEnemy : EnemyController
             canJump = false;
             inTransition = true;
             Anim.SetTrigger("jump");
-
-            
         }
         if (inTransition)
         {
             if (inTransition)
             {
-
                 Vector3 targetPos = landingLocations[positionIndex].transform.position;
                 Vector3 futurePos = transform.position + jumpDirection * jumpSpeed * Time.deltaTime;
                 if (jumpDirection.x > 0 && (targetPos.x <= futurePos.x))
@@ -65,17 +62,10 @@ public class SlimeEnemy : EnemyController
                 }
                 jumpSpeed = Mathf.Max(0.2f, 996 * jumpSpeed / 1000);
             }
-            
-
         }
-
-
-
     }
 
-
-
-    // When colliding with an enemy, player takes damage
+    //  When  colliding  with  an  enemy,  player  takes  damage
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -86,15 +76,14 @@ public class SlimeEnemy : EnemyController
                 playerController.AlterTime(attackDamage);
                 playerController.StartKnockBack(transform.position);
 
-
-                //AttackCooldown = maxAttackCooldown;
+                //AttackCooldown  =  maxAttackCooldown;
             }
         }
     }
 
     private IEnumerator JumpDelay()
     {
-        // Wait for 0.05 seconds.
+        //  Wait  for  0.05  seconds.
         yield return new WaitForSeconds(1.2f);
         canJump = true;
     }

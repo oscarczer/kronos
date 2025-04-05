@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class SkeleBoss : MonoBehaviour
 {
-
-    // General
+    //  General
     private Rigidbody2D rigidBody;
     public float jumpHeight;
     private GameObject player;
@@ -21,31 +20,30 @@ public class SkeleBoss : MonoBehaviour
     public bool cutscene = true;
     public GameObject bossTitleCard;
 
-    // Audio
+    //  Audio
     public AudioSource bossWin;
     public AudioSource wind;
     public AudioSource music;
 
-    // Jumping Attack
+    //  Jumping  Attack
     public float jumpCooldown = 0.4f;
     private float remainingJumpCooldown;
     private int jumpsRemaining = 3;
     public GameObject timerDrop;
 
-    // Attack 1
+    //  Attack  1
     private Transform attackOnePoint1;
     private Transform attackOnePoint2;
     public float attackCooldown = 1f;
     private float remainingAttackCooldown;
     private int attack1Remaining = 2;
 
-    // Attack 2
+    //  Attack  2
     private int attack2Remaining = 1;
     private Transform attackTwoPoint1;
     private Transform attackTwoPoint2;
 
-
-    // Start is called before the first frame update
+    //  Start  is  called  before  the  first  frame  update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -62,7 +60,7 @@ public class SkeleBoss : MonoBehaviour
         StartCoroutine(CutScene());
     }
 
-    // Update is called once per frame
+    //  Update  is  called  once  per  frame
     void Update()
     {
         if (player.GetComponent<PlayerController>().IsDead || isDead || cutscene)
@@ -184,8 +182,11 @@ public class SkeleBoss : MonoBehaviour
         int randomNum = Random.Range(0, 2);
         if (randomNum == 0)
         {
-            Instantiate(timerDrop, new Vector2(transform.position.x, -7.5f), timerDrop.transform.rotation);
-
+            Instantiate(
+                timerDrop,
+                new Vector2(transform.position.x, -7.5f),
+                timerDrop.transform.rotation
+            );
         }
 
         rigidBody.AddForce(new Vector2(distanceFromPlayer / 4, jumpHeight), ForceMode2D.Impulse);
@@ -198,7 +199,10 @@ public class SkeleBoss : MonoBehaviour
 
     public void Attack1()
     {
-        Collider2D[] hit = Physics2D.OverlapAreaAll(attackOnePoint1.position, attackOnePoint2.position);
+        Collider2D[] hit = Physics2D.OverlapAreaAll(
+            attackOnePoint1.position,
+            attackOnePoint2.position
+        );
 
         foreach (Collider2D item in hit)
         {
@@ -225,7 +229,10 @@ public class SkeleBoss : MonoBehaviour
 
     public void Attack2()
     {
-        Collider2D[] hit = Physics2D.OverlapAreaAll(attackTwoPoint1.position, attackTwoPoint2.position);
+        Collider2D[] hit = Physics2D.OverlapAreaAll(
+            attackTwoPoint1.position,
+            attackTwoPoint2.position
+        );
 
         foreach (Collider2D item in hit)
         {
@@ -304,10 +311,10 @@ public class SkeleBoss : MonoBehaviour
         anim.SetTrigger("isDead");
         Destroy(gameObject, 0.8f);
 
-        // text that says "Humphrey defeated"
+        //  text  that  says  "Humphrey  defeated"
         bossTitleCard.SetActive(true);
         bossTitleCard.transform.GetChild(0).localScale = new Vector3(29, 3, 1);
-        bossTitleCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text += " defeated";
+        bossTitleCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text += "  defeated";
         Destroy(bossTitleCard.gameObject, 3f);
     }
 
@@ -323,7 +330,11 @@ public class SkeleBoss : MonoBehaviour
 
         while (transform.position != new Vector3(21.5f, -5.15f, 0))
         {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(21.5f, -5.15f, 0), 1.3f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                new Vector3(21.5f, -5.15f, 0),
+                1.3f * Time.deltaTime
+            );
             yield return null;
         }
 
@@ -331,7 +342,11 @@ public class SkeleBoss : MonoBehaviour
 
         while (door.transform.position != new Vector3(9.74f, 0, 0))
         {
-            door.transform.position = Vector3.MoveTowards(door.transform.position, new Vector3(9.74f, 0, 0), 1.75f * Time.deltaTime);
+            door.transform.position = Vector3.MoveTowards(
+                door.transform.position,
+                new Vector3(9.74f, 0, 0),
+                1.75f * Time.deltaTime
+            );
             yield return null;
         }
 

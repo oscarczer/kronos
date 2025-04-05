@@ -21,10 +21,12 @@ public class GroundEnemy : EnemyController
     // Update is called once per frame
     void Update()
     {
-        if (!Player.GetComponent<PlayerController>().IsDead && !isKnockingUp) {
-            if (shoot) {
+        if (!Player.GetComponent<PlayerController>().IsDead && !isKnockingUp)
+        {
+            if (shoot)
+            {
                 Shoot();
-            } 
+            }
             AttackCooldown -= Time.deltaTime;
         }
         if (isKnockingUp)
@@ -42,7 +44,8 @@ public class GroundEnemy : EnemyController
             return;
         }
 
-        if (AttackCooldown <= 0) {
+        if (AttackCooldown <= 0)
+        {
             // shotsFired is used so that the guy shoots 3 times, takes a break, then shoots again
             shotsFired++;
             if (shotsFired <= 3)
@@ -64,18 +67,20 @@ public class GroundEnemy : EnemyController
     }
 
     // Only shoot when the player is in vision
-    private void OnTriggerEnter2D(Collider2D other) 
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.tag == "Player")
+        {
             shoot = true;
             Anim.SetBool("shoot", true);
         }
     }
 
     // Stop shooting when the player is no longer in vision
-    private void OnTriggerExit2D(Collider2D other) 
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.tag == "Player")
+        {
             shoot = false;
             Anim.SetBool("shoot", false);
         }

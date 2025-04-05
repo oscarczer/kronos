@@ -14,7 +14,8 @@ public class DeathPopup : MonoBehaviour
         if (textObj.text.StartsWith('+'))
         {
             textObj.color = Color.green;
-        } else
+        }
+        else
         {
             textObj.color = Color.red;
         }
@@ -31,6 +32,5 @@ public class DeathPopup : MonoBehaviour
     {
         // move up every frame
         transform.Translate(Vector3.up * Time.deltaTime);
-       
     }
 }
