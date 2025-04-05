@@ -42,7 +42,6 @@ public class GoblinEnemy : FollowingEnemy
 
         if (chase && !Player.GetComponent<PlayerController>().IsDead && !IsDead && AttackCooldown <= 0) 
         {
-            Debug.Log("platform falling: " + platformFalling + ", OnGround: " + isGrounded + ", onplatform" + onPlatform);
             DownPlatform();
             Move();
             Jump();
@@ -97,8 +96,6 @@ public class GoblinEnemy : FollowingEnemy
     {
         if (Player.transform.position.y > transform.position.y + 0.2f && (isGrounded || onPlatform))
         {
-            Debug.Log("Jump Attempted");
-
             upSpeed = jumpSpeed;
             // going up still:
             Vector3 newPos = transform.position + Vector3.up * upSpeed * Time.deltaTime;
@@ -117,7 +114,6 @@ public class GoblinEnemy : FollowingEnemy
     {
         if (onPlatform && Player.transform.position.x < transform.position.x -.5f)
         {
-            Debug.Log("Down bich down!!");
             isGrounded = false;
             onPlatform = false;
             platformFalling = true;
@@ -130,7 +126,6 @@ public class GoblinEnemy : FollowingEnemy
     {
         if (!isGrounded && !onPlatform)
         {
-            Debug.Log("Jump Continued; upSpeed " + upSpeed);
             if (upSpeed <= 0)
             {
                 isJumping = false;

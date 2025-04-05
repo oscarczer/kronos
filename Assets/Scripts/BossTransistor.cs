@@ -26,10 +26,9 @@ public class BossTransistor : MonoBehaviour
         // purchase things (uses attack button)
         if (Input.GetKeyDown(KeyCode.X))
         {
-            // confirm that the text is visible
+            // Confirm that the text is visible
             if (transform.GetChild(0).gameObject.activeSelf)
             {
-                Debug.Log("boss time");
                 StartCoroutine(CreateScene());
             }
         }

@@ -10,6 +10,7 @@ public class WormBossBody : MonoBehaviour
     public float health = 20f;
     private bool isDead = false;
     public Sprite wormHead;
+    
     // Update is called once per frame
     void Update()
     {
@@ -33,12 +34,7 @@ public class WormBossBody : MonoBehaviour
 
             int destroyedIndex = System.Array.IndexOf(bodies, gameObject.transform);
 
-            if (destroyedIndex == -1) {
-                Debug.Log(":(");
-            }
-
             if (destroyedIndex == bodies.Length - 1) {
-                Debug.Log("tail?");
                 Destroy(gameObject);
                 return;
             }

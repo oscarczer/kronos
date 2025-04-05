@@ -278,7 +278,6 @@ public class SkeleBoss : MonoBehaviour
 
         if (distanceFromPlayer < 0 && facingRight || distanceFromPlayer > 0 && !facingRight)
         {
-            Debug.Log("defend");
             anim.SetTrigger("defend");
         }
         else

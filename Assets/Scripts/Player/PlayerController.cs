@@ -98,8 +98,6 @@ public class PlayerController : MonoBehaviour
     public float knockInitial;
     private float knockCurrent = 0.0f;
 
-
-
     #endregion
 
     // Start is called before the first frame update
@@ -552,12 +550,10 @@ public class PlayerController : MonoBehaviour
                 if (enemy.name == "Hitbox")
                 {
                     enemy.GetComponentInParent<EnemyController>().TakeDamage(attackDamage);
-                    Debug.Log("Hit: " + enemy.transform.parent.name);
                 }
                 else if (enemy.tag == "Bullet")
                 {
                     enemy.GetComponent<EnemyController>().Die();
-                    Debug.Log("die bullet");
                 }
                 else if (enemy.tag == "OrbBoss")
                 {
