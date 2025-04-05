@@ -10,12 +10,6 @@ public class WormBossBody : MonoBehaviour
     public float health = 20f;
     private bool isDead = false;
     public Sprite wormHead;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
