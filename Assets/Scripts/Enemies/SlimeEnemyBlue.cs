@@ -63,15 +63,8 @@ public class SlimeEnemyBlue : EnemyController
                 }
                 jumpSpeed = Mathf.Max(0.2f, 993 * jumpSpeed / 1000);
             }
-            
-
         }
-
-
-
     }
-
-
 
     // When colliding with an enemy, player takes damage
     public virtual void OnCollisionEnter2D(Collision2D collision)
@@ -94,7 +87,6 @@ public class SlimeEnemyBlue : EnemyController
     {
         // Wait for 0.05 seconds.
         yield return new WaitForSeconds(0.6f);
-        print("hello?");
         canJump = true;
     }
 }

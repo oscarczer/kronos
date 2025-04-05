@@ -94,7 +94,6 @@ public class SlimeEnemyRed : EnemyController
     {
         // Wait for 0.05 seconds.
         yield return new WaitForSeconds(0.2f);
-        print("hello?");
         canJump = true;
     }
 }
