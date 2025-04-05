@@ -58,89 +58,120 @@ public class SkeleBoss : MonoBehaviour
         attackOnePoint2 = transform.GetChild(1).transform;
         attackTwoPoint1 = transform.GetChild(2).transform;
         attackTwoPoint2 = transform.GetChild(3).transform;
-        
+
         StartCoroutine(CutScene());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player.GetComponent<PlayerController>().IsDead || isDead || cutscene) {
+        if (player.GetComponent<PlayerController>().IsDead || isDead || cutscene)
+        {
             return;
         }
 
-        if (health <= 0) {
+        if (health <= 0)
+        {
             Die();
             isDead = true;
         }
 
         isGrounded = rigidBody.linearVelocity.y == 0;
 
-        if (!isGrounded) {
+        if (!isGrounded)
+        {
             return;
         }
 
         anim.SetBool("walking", false);
 
-        if (health > 10) {
-            if(!isAttacking) {
-                if (jumpsRemaining > 0) {
-                    if(remainingJumpCooldown <= 0) {
+        if (health > 10)
+        {
+            if (!isAttacking)
+            {
+                if (jumpsRemaining > 0)
+                {
+                    if (remainingJumpCooldown <= 0)
+                    {
                         JumpAttack();
                         jumpsRemaining -= 1;
                         remainingJumpCooldown = jumpCooldown;
-                    } else {
+                    }
+                    else
+                    {
                         remainingJumpCooldown -= Time.deltaTime;
                     }
-                } else {
+                }
+                else
+                {
                     isAttacking = true;
                     attack1Remaining = 2;
                     attack2Remaining = 1;
                 }
-            } else {
-                if (attack1Remaining > 0) {
-                    if(remainingAttackCooldown <= 0) {
+            }
+            else
+            {
+                if (attack1Remaining > 0)
+                {
+                    if (remainingAttackCooldown <= 0)
+                    {
                         FacePlayer();
                         Attack1Start();
                         remainingAttackCooldown = attackCooldown;
                         attack1Remaining -= 1;
-                    } else {
+                    }
+                    else
+                    {
                         remainingAttackCooldown -= Time.deltaTime;
                     }
-                } else if (attack2Remaining > 0) {
-                    if(remainingAttackCooldown <= 0) {
+                }
+                else if (attack2Remaining > 0)
+                {
+                    if (remainingAttackCooldown <= 0)
+                    {
                         Attack2Start();
                         isAttacking = false;
                         jumpsRemaining = 3;
-                    } else {
+                    }
+                    else
+                    {
                         remainingAttackCooldown -= Time.deltaTime;
-                    } 
+                    }
                 }
             }
-        } else {
+        }
+        else
+        {
             isAttacking = true;
             GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
 
             attackCooldown = 0.5f;
 
-            if(remainingAttackCooldown <= 0) {
+            if (remainingAttackCooldown <= 0)
+            {
                 Attack1Start();
                 remainingAttackCooldown = attackCooldown;
                 attack1Remaining -= 1;
-            } else {
+            }
+            else
+            {
                 remainingAttackCooldown -= Time.deltaTime;
             }
-            
-            if (transform.position.x >= 22) {
+
+            if (transform.position.x >= 22)
+            {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 facingRight = true;
-            } else if (transform.position.x <= -1) {
+            }
+            else if (transform.position.x <= -1)
+            {
                 transform.rotation = Quaternion.Euler(0, -180, 0);
                 facingRight = false;
             }
         }
 
-        if (!isAttacking) {
+        if (!isAttacking)
+        {
             FacePlayer();
         }
     }
@@ -151,7 +182,8 @@ public class SkeleBoss : MonoBehaviour
         anim.SetBool("walking", true);
 
         int randomNum = Random.Range(0, 2);
-        if (randomNum == 0) {
+        if (randomNum == 0)
+        {
             Instantiate(timerDrop, new Vector2(transform.position.x, -7.5f), timerDrop.transform.rotation);
 
         }
@@ -166,18 +198,23 @@ public class SkeleBoss : MonoBehaviour
 
     public void Attack1()
     {
-        Collider2D[] hit = Physics2D.OverlapAreaAll(attackOnePoint1.position,attackOnePoint2.position);
+        Collider2D[] hit = Physics2D.OverlapAreaAll(attackOnePoint1.position, attackOnePoint2.position);
 
-        foreach(Collider2D item in hit) {
-            if (item.tag == "Player") {
+        foreach (Collider2D item in hit)
+        {
+            if (item.tag == "Player")
+            {
                 player.GetComponent<PlayerController>().AlterTime(-10);
             }
         }
 
-        if(facingRight) {
+        if (facingRight)
+        {
             transform.position = new Vector2(transform.position.x - 2f, transform.position.y);
-        } else {
-             transform.position = new Vector2(transform.position.x + 2f, transform.position.y);
+        }
+        else
+        {
+            transform.position = new Vector2(transform.position.x + 2f, transform.position.y);
         }
     }
 
@@ -188,26 +225,34 @@ public class SkeleBoss : MonoBehaviour
 
     public void Attack2()
     {
-        Collider2D[] hit = Physics2D.OverlapAreaAll(attackTwoPoint1.position,attackTwoPoint2.position);
+        Collider2D[] hit = Physics2D.OverlapAreaAll(attackTwoPoint1.position, attackTwoPoint2.position);
 
-        foreach(Collider2D item in hit) {
-            if (item.tag == "Player") {
+        foreach (Collider2D item in hit)
+        {
+            if (item.tag == "Player")
+            {
                 player.GetComponent<PlayerController>().AlterTime(-20);
             }
         }
 
-        if(facingRight) {
+        if (facingRight)
+        {
             transform.position = new Vector2(transform.position.x - 3f, transform.position.y);
-        } else {
-             transform.position = new Vector2(transform.position.x + 3f, transform.position.y);
+        }
+        else
+        {
+            transform.position = new Vector2(transform.position.x + 3f, transform.position.y);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Platform") {
-            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>()); 
-        } else if (collision.gameObject.tag == "Player") {
+        if (collision.gameObject.tag == "Platform")
+        {
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+        }
+        else if (collision.gameObject.tag == "Player")
+        {
             if (!player.GetComponent<PlayerController>().invulnerable)
                 collision.gameObject.GetComponent<PlayerController>().AlterTime(-5);
         }
@@ -215,10 +260,13 @@ public class SkeleBoss : MonoBehaviour
 
     private void FacePlayer()
     {
-        if (transform.position.x < player.transform.position.x) {
+        if (transform.position.x < player.transform.position.x)
+        {
             transform.rotation = Quaternion.Euler(0, 180, 0);
             facingRight = false;
-        } else {
+        }
+        else
+        {
             transform.rotation = Quaternion.Euler(0, 0, 0);
             facingRight = true;
         }
@@ -228,20 +276,25 @@ public class SkeleBoss : MonoBehaviour
     {
         float distanceFromPlayer = player.transform.position.x - transform.position.x;
 
-        if (distanceFromPlayer < 0 && facingRight || distanceFromPlayer > 0 && !facingRight) {
+        if (distanceFromPlayer < 0 && facingRight || distanceFromPlayer > 0 && !facingRight)
+        {
             Debug.Log("defend");
             anim.SetTrigger("defend");
-        } else {
+        }
+        else
+        {
             anim.SetTrigger("isHit");
-            health += damage;
+            health -= damage;
         }
     }
 
-    private void Die() {
+    private void Die()
+    {
         music.Stop();
         bossWin.Play();
 
-        if (!bossDrops.activeInHierarchy) {
+        if (!bossDrops.activeInHierarchy)
+        {
             bossDrops.SetActive(true);
         }
 
@@ -259,25 +312,28 @@ public class SkeleBoss : MonoBehaviour
         Destroy(bossTitleCard.gameObject, 3f);
     }
 
-    private IEnumerator CutScene() {
+    private IEnumerator CutScene()
+    {
         player.GetComponent<PlayerController>().immobile = true;
 
         Collider2D collider = GetComponent<Collider2D>();
-        rigidBody.isKinematic = true;
+        rigidBody.bodyType = RigidbodyType2D.Kinematic;
         collider.enabled = false;
 
         anim.SetBool("walking", true);
-        
-        while (transform.position != new Vector3(21.5f,-5.15f,0)) {
+
+        while (transform.position != new Vector3(21.5f, -5.15f, 0))
+        {
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(21.5f, -5.15f, 0), 1.3f * Time.deltaTime);
-            yield return null; 
+            yield return null;
         }
 
         anim.SetBool("walking", false);
 
-        while (door.transform.position != new Vector3(9.74f,0,0)) {
+        while (door.transform.position != new Vector3(9.74f, 0, 0))
+        {
             door.transform.position = Vector3.MoveTowards(door.transform.position, new Vector3(9.74f, 0, 0), 1.75f * Time.deltaTime);
-            yield return null; 
+            yield return null;
         }
 
         Attack1Start();
@@ -291,11 +347,11 @@ public class SkeleBoss : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         collider.enabled = true;
-        rigidBody.isKinematic = false;
+        rigidBody.bodyType = RigidbodyType2D.Kinematic;
 
         cutscene = false;
         player.GetComponent<PlayerController>().immobile = false;
-        
+
         yield return null;
     }
 }

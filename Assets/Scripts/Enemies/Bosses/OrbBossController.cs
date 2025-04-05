@@ -18,9 +18,9 @@ public class OrbBossController : MonoBehaviour
     private float cooldown = 5.0f;
 
     private float maxHealth = 20f;
-    private float currentHealth;
+    public float currentHealth;
     private bool angry = false;
-    
+
     public bool cutscene = true;
 
     public GameObject healthPopup;
@@ -96,7 +96,8 @@ public class OrbBossController : MonoBehaviour
             timeSinceLastTeleport = 0f;
             // pick a random attack to do
             int randomAttack = Random.Range(0, 3);
-            switch (randomAttack) {
+            switch (randomAttack)
+            {
                 case 2:
                     StartCoroutine(ExPlusAttack());
                     break;
@@ -116,7 +117,7 @@ public class OrbBossController : MonoBehaviour
             angry = true;
             Teleport();
         }
-        
+
     }
 
     private void Spawn(float angle)
@@ -137,7 +138,7 @@ public class OrbBossController : MonoBehaviour
             shot = Instantiate(projectile, transform.position, projectile.transform.rotation);
             shot.GetComponent<OrbProjectileController>().thrust = velocity;
         }
-        
+
         //bossShoot.Play();
     }
 
@@ -183,7 +184,7 @@ public class OrbBossController : MonoBehaviour
         for (int i = 0; i < 720; i += 30)
         {
             Spawn(Mathf.Deg2Rad * i);
-            if (angry) Spawn(Mathf.Deg2Rad * (i+180));
+            if (angry) Spawn(Mathf.Deg2Rad * (i + 180));
             yield return new WaitForSeconds(0.1f);
         }
         yield return new WaitForSeconds(0.1f);
@@ -239,7 +240,7 @@ public class OrbBossController : MonoBehaviour
     {
         if (cutscene) { return; }
 
-        currentHealth += damage;
+        currentHealth -= damage;
         anim.SetTrigger("isHit");
 
         if (currentHealth <= 0) { Die(); }
@@ -271,7 +272,7 @@ public class OrbBossController : MonoBehaviour
 
         // text that says "hubert defeated"
         bossTitleCard.SetActive(true);
-        bossTitleCard.transform.GetChild(0).localScale = new Vector3(25,3,1);
+        bossTitleCard.transform.GetChild(0).localScale = new Vector3(25, 3, 1);
         bossTitleCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Hubert defeated";
         Destroy(bossTitleCard.gameObject, 3f);
     }
