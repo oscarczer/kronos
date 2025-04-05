@@ -283,7 +283,7 @@ public class SkeleBoss : MonoBehaviour
         else
         {
             anim.SetTrigger("isHit");
-            health -= damage;
+            health += damage;
         }
     }
 

@@ -240,7 +240,7 @@ public class OrbBossController : MonoBehaviour
     {
         if (cutscene) { return; }
 
-        currentHealth -= damage;
+        currentHealth += damage;
         anim.SetTrigger("isHit");
 
         if (currentHealth <= 0) { Die(); }

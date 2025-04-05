@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShopItem : MonoBehaviour
 {
     // update player stats
-    private PlayerController player;    
+    private PlayerController player;
 
     // Shop item variables
     public float cost;
@@ -42,7 +42,7 @@ public class ShopItem : MonoBehaviour
                 // update the players stats
                 player.dashDuration += dashLengthIncrease;
                 player.maxAttackCooldown += attackSpeedIncrease;
-                player.attackDamage += swordDamageIncrease;
+                player.attackDamage -= swordDamageIncrease;
                 player.moveSpeed += moveSpeedIncrease;
                 player.lifeStealConstant += lifeStealIncrease;
 
@@ -50,7 +50,7 @@ public class ShopItem : MonoBehaviour
                 Vector2 attackPointPos = player.transform.GetChild(1).transform.position;
                 // need to figure out whether to add or subtract to the position.x
                 Vector2 basePoint = player.transform.GetChild(0).transform.position;
-                int sign = (int) Mathf.Sign(attackPointPos.x - basePoint.x);
+                int sign = (int)Mathf.Sign(attackPointPos.x - basePoint.x);
                 attackPointPos.x += sign * swordLengthIncrease;
                 player.transform.GetChild(1).transform.position = attackPointPos;
 

@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour
     // Take damage equal to the players damage (used for when hit in PlayerCombat)
     public void TakeDamage(float damage)
     {
-        CurrentHealth -= damage;
+        CurrentHealth += damage;
         Anim.SetTrigger("hit");
 
         if (CurrentHealth < 0)

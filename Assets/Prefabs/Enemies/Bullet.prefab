@@ -235,7 +235,7 @@ MonoBehaviour:
   healthPopup: {fileID: 2066802814337847150, guid: 5b6537d4b582b4d79935cbd842595f51, type: 3}
   timeGainedFromKill: 0
   maxHealth: 1
-  attackDamage: 5
+  attackDamage: -5
   maxAttackCooldown: 0.5
   knockback: 1
   knockInitial: 0
