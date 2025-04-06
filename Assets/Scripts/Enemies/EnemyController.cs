@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    #region  Variables
-    //  General  Operation  Variables
+    #region Variables
+    // General Operation Variables
     private GameObject player;
     private bool isDead = false;
     private Animator anim;
@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
         set => isDead = value;
     }
 
-    //  Health  Variables
+    // Health Variables
     public float timeGainedFromKill;
     public float maxHealth;
     private float currentHealth;
@@ -40,7 +40,7 @@ public class EnemyController : MonoBehaviour
         set => currentHealth = value;
     }
 
-    //  Attack  Variables
+    // Attack Variables
     public float attackDamage;
     private float attackCooldown;
     public float maxAttackCooldown = 0.5f;
@@ -51,14 +51,14 @@ public class EnemyController : MonoBehaviour
         set => attackCooldown = value;
     }
 
-    //  Knockback  Variables
+    // Knockback Variables
     public bool knockback = true;
     private Vector3 knockDirection;
     private bool isKnocking = false;
     public float knockInitial;
     private float knockCurrent = 0.0f;
 
-    //  KnockUp  Variables
+    // KnockUp Variables
     public bool knockUp = true;
     public bool isKnockingUp = false;
     private float knockUpInitial = 10;
@@ -82,7 +82,7 @@ public class EnemyController : MonoBehaviour
     }
     #endregion
 
-    //  Start  is  called  before  the  first  frame  update
+    // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
@@ -90,7 +90,7 @@ public class EnemyController : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    //  Take  damage  equal  to  the  players  damage  (used  for  when  hit  in  PlayerCombat)
+    // Take damage equal to the players damage (used for when hit in PlayerCombat)
     public void TakeDamage(float damage)
     {
         CurrentHealth += damage;
@@ -118,14 +118,14 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    //  Destroy  the  enemy  (and  later  player  a  death  animation)
+    // Destroy the enemy (and later player a death animation)
     public virtual void Die()
     {
         if (!IsDead)
         {
             IsDead = true;
             Player.GetComponent<PlayerController>().AlterTime(timeGainedFromKill);
-            //  turn  off  Hitbox,  so  player  cannot  hit  enemy  and  enemy  cannot  hit  player
+            // turn off Hitbox, so player cannot hit enemy and enemy cannot hit player
             transform.GetChild(0).gameObject.SetActive(false);
 
             Anim.SetTrigger("dead");
@@ -133,7 +133,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    //  Knock  back  enemy  when  hit
+    // Knock back enemy when hit
     public void KnockbackHandler()
     {
         transform.position += KnockDirection * KnockCurrent * Time.deltaTime;

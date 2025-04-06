@@ -12,19 +12,19 @@ public class GoblinEnemy : FollowingEnemy
     public float gravAcc;
     public float maxGrav;
 
-    //  Player  Movement  States
+    // Player Movement States
     private bool onPlatform = false;
     private bool isGrounded = false;
     private bool platformFalling = false;
     private bool canGoLeft = false;
     private bool canGoRight = false;
 
-    //  Jump  Specific  Variables
+    // Jump Specific Variables
     public float jumpSpeed;
     private bool isJumping = false;
     private float upSpeed = 0;
 
-    //  Start  is  called  before  the  first  frame  update
+    // Start is called before the first frame update
     void Start()
     {
         Player = (GameObject.FindGameObjectWithTag("Player"));
@@ -34,7 +34,7 @@ public class GoblinEnemy : FollowingEnemy
         CurrentHealth = maxHealth;
     }
 
-    //  Update  is  called  once  per  frame
+    // Update is called once per frame
     void Update()
     {
         CheckGround();
@@ -63,7 +63,7 @@ public class GoblinEnemy : FollowingEnemy
         }
     }
 
-    //  general  movement  handler
+    // general movement handler
     private void Move()
     {
         if (
@@ -97,13 +97,13 @@ public class GoblinEnemy : FollowingEnemy
         }
     }
 
-    //  jump  action  handler
+    // jump action handler
     private void Jump()
     {
         if (Player.transform.position.y > transform.position.y + 0.2f && (isGrounded || onPlatform))
         {
             upSpeed = jumpSpeed;
-            //  going  up  still:
+            // going up still:
             Vector3 newPos = transform.position + Vector3.up * upSpeed * Time.deltaTime;
             if (FutureCheckCeiling(newPos))
             {
@@ -115,7 +115,7 @@ public class GoblinEnemy : FollowingEnemy
         }
     }
 
-    //  down  platform  action  handler
+    // down platform action handler
     private void DownPlatform()
     {
         if (onPlatform && Player.transform.position.x < transform.position.x - .5f)
@@ -127,7 +127,7 @@ public class GoblinEnemy : FollowingEnemy
         }
     }
 
-    //  ground  collision  check
+    // ground collision check
     private void CheckGround()
     {
         if (!isGrounded && !onPlatform)

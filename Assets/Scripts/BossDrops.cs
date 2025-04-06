@@ -9,19 +9,19 @@ public class BossDrops : MonoBehaviour
     public bool dash;
     public GameObject bossTrans;
 
-    //  Start  is  called  before  the  first  frame  update
+    // Start is called before the first frame update
     void Start()
     {
         GameObject temp = GameObject.Find("Player");
         player = temp.GetComponent<PlayerController>();
     }
 
-    //  Update  is  called  once  per  frame
+    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            //  confirm  that  the  text  is  visible
+            // confirm that the text is visible
             if (transform.GetChild(0).gameObject.activeSelf)
             {
                 if (jump)
@@ -39,7 +39,7 @@ public class BossDrops : MonoBehaviour
                     bossTrans.SetActive(true);
                 }
 
-                GameObject.Find("Boss  Drops").SetActive(false);
+                GameObject.Find("Boss Drops").SetActive(false);
             }
         }
     }
@@ -49,7 +49,7 @@ public class BossDrops : MonoBehaviour
         string objname = collision.gameObject.name;
         if (objname == "Player")
         {
-            //  make  text  visible
+            // make text visible
             transform.GetChild(0).gameObject.SetActive(true);
         }
     }
@@ -59,7 +59,7 @@ public class BossDrops : MonoBehaviour
         string objname = collision.gameObject.name;
         if (objname == "Player")
         {
-            //  turn  text  off
+            // turn text off
             transform.GetChild(0).gameObject.SetActive(false);
         }
     }

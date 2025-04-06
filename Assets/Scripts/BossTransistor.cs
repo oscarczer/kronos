@@ -6,26 +6,26 @@ using UnityEngine.SceneManagement;
 
 public class BossTransistor : MonoBehaviour
 {
-    //  update  player  stats
+    // update player stats
     private GameObject playerObj;
     private PlayerController player;
     public string newScene;
     public string oldScene;
 
-    //  Start  is  called  before  the  first  frame  update
+    // Start is called before the first frame update
     void Start()
     {
         playerObj = GameObject.FindGameObjectWithTag("Player");
         player = playerObj.GetComponent<PlayerController>();
     }
 
-    //  Update  is  called  once  per  frame
+    // Update is called once per frame
     void Update()
     {
-        //  purchase  things  (uses  attack  button)
+        // purchase things (uses attack button)
         if (Input.GetKeyDown(KeyCode.X))
         {
-            //  Confirm  that  the  text  is  visible
+            // Confirm that the text is visible
             if (transform.GetChild(0).gameObject.activeSelf)
             {
                 StartCoroutine(CreateScene());
@@ -58,18 +58,18 @@ public class BossTransistor : MonoBehaviour
         }
         else
         {
-            //  Just  finished  a  bossfight,  therefore  going  to  a  new  level
+            // Just finished a bossfight, therefore going to a new level
             SceneManager.LoadScene(newScene, LoadSceneMode.Single);
         }
     }
 
-    //  Handle  boss  things
+    // Handle boss things
     private void OnTriggerStay2D(Collider2D collision)
     {
         string objname = collision.gameObject.name;
         if (objname == "Player")
         {
-            //  make  text  visible
+            // make text visible
             transform.GetChild(0).gameObject.SetActive(true);
         }
     }
@@ -79,7 +79,7 @@ public class BossTransistor : MonoBehaviour
         string objname = collision.gameObject.name;
         if (objname == "Player")
         {
-            //  turn  text  off
+            // turn text off
             transform.GetChild(0).gameObject.SetActive(false);
         }
     }
