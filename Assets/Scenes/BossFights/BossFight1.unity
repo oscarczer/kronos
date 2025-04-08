@@ -8410,7 +8410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &703167904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30515,6 +30515,7 @@ MonoBehaviour:
   projectile: {fileID: 496900197320900658, guid: 470a3dade5c304952beec6c7ffd32ece, type: 3}
   timePickup: {fileID: 8800718443409874191, guid: f4fdb64f5efa940179639678137fbc44, type: 3}
   bossTitleCard: {fileID: 57580013}
+  currentHealth: 0
   cutscene: 1
   healthPopup: {fileID: 2066802814337847150, guid: 5b6537d4b582b4d79935cbd842595f51, type: 3}
   bossShoot: {fileID: 2144046809}
