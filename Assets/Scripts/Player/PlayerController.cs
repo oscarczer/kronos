@@ -789,6 +789,8 @@ public class PlayerController : MonoBehaviour
                 shopMusic.PlayDelayed(1f);
             }
         }
+
+        // TODO: Get rid of this
         if (collision.gameObject.name == "Start Level Trigger")
         {
             isTutorial = false;
