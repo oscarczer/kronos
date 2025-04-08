@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BossFights/BossFight3.unity
     guid: eaa1b4ae852a54b6986dc9b7382c10f6
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: bf810cbbe3fbb41b4968e7afd0ccad99
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
