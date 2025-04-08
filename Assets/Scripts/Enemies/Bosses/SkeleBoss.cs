@@ -254,14 +254,9 @@ public class SkeleBoss : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Platform")
+        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Player")
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-        }
-        else if (collision.gameObject.tag == "Player")
-        {
-            if (!player.GetComponent<PlayerController>().invulnerable)
-                collision.gameObject.GetComponent<PlayerController>().AlterTime(-5);
         }
     }
 

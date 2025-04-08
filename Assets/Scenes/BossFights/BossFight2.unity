@@ -38802,7 +38802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpHeight: 13
-  health: 20
+  health: 50
   bossDrops: {fileID: 678865016}
   door: {fileID: 1130344629}
   cutscene: 1
