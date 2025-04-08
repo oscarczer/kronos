@@ -16,7 +16,7 @@ public class OrbBossController : MonoBehaviour
     private float timeSinceLastTeleport;
     private float cooldown = 5.0f;
 
-    private float maxHealth = 20f;
+    private float maxHealth = 50f;
     public float currentHealth;
     private bool angry = false;
 
@@ -218,16 +218,7 @@ public class OrbBossController : MonoBehaviour
             }
             yield return new WaitForSeconds(0.3f);
         }
-        //yield  return  new  WaitForSeconds(0.1f);
-        //for  (int  j  =  0;  j  <  4;  j++)
-        //{
-        //        for  (int  i  =  80;  i  <  360;  i  +=  90)
-        //        {
-        //                Spawn(Mathf.Deg2Rad  *  i);
-        //                if  (angry)  Spawn(Mathf.Deg2Rad  *  (i+5));
-        //        }
-        //        yield  return  new  WaitForSeconds(0.3f);
-        //}
+
         yield return null;
         if (angry)
             Teleport();

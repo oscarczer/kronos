@@ -915,7 +915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &154396009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46017,10 +46017,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2272184884278470343, guid: d0d1db14baff44c98b76485b145e54b5, type: 3}
       propertyPath: m_text
-      value: 'Final boss approaching
+      value: 'Congratulations!
 
 
-        [attack] to begin'
+        You'' made it out with time to spare.'
       objectReference: {fileID: 0}
     - target: {fileID: 2889013557658125899, guid: d0d1db14baff44c98b76485b145e54b5, type: 3}
       propertyPath: newScene
