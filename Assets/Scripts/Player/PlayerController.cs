@@ -683,10 +683,6 @@ public class PlayerController : MonoBehaviour
                 {
                     enemy.GetComponent<WormBossHead>().health += attackDamage;
                 }
-                else if (enemy.tag == "Projectile")
-                {
-                    Destroy(enemy.gameObject);
-                }
             }
             attackCooldown = maxAttackCooldown;
         }
