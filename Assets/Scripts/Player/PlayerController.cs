@@ -211,18 +211,6 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("walking", false);
         }
 
-        /*
-        Vector2 direction = new Vector2(0, 0);
-        if (right)
-        {
-           direction = new Vector2(1, 0);
-        }
-        else if (left)
-        {
-           direction = new Vector2(-1, 0);
-        }
-        */
-
         if (right)
         {
             facingRight = true;

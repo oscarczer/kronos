@@ -11,7 +11,7 @@ public class SkeleBoss : MonoBehaviour
     private GameObject player;
     private bool isGrounded;
     private bool facingRight = false;
-    public float health = 30f;
+    public float health = 50f;
     private Animator anim;
     private bool isAttacking = false;
     public GameObject bossDrops;
@@ -83,7 +83,7 @@ public class SkeleBoss : MonoBehaviour
 
         anim.SetBool("walking", false);
 
-        if (health > 10)
+        if (health > 25)
         {
             if (!isAttacking)
             {
@@ -314,7 +314,8 @@ public class SkeleBoss : MonoBehaviour
         //  text  that  says  "Humphrey  defeated"
         bossTitleCard.SetActive(true);
         bossTitleCard.transform.GetChild(0).localScale = new Vector3(29, 3, 1);
-        bossTitleCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text += "  defeated";
+        bossTitleCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
+            "Humphrey defeated";
         Destroy(bossTitleCard.gameObject, 3f);
     }
 
@@ -361,7 +362,7 @@ public class SkeleBoss : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         collider.enabled = true;
-        rigidBody.bodyType = RigidbodyType2D.Kinematic;
+        rigidBody.bodyType = RigidbodyType2D.Dynamic;
 
         cutscene = false;
         player.GetComponent<PlayerController>().immobile = false;

@@ -289,7 +289,7 @@ public class OrbBossController : MonoBehaviour
         bossTitleCard.SetActive(true);
         bossTitleCard.transform.GetChild(0).localScale = new Vector3(25, 3, 1);
         bossTitleCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
-            "Hubert  defeated";
+            "Hubert defeated";
         Destroy(bossTitleCard.gameObject, 3f);
     }
 }

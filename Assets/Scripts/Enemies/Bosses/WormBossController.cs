@@ -35,8 +35,8 @@ public class WormBossController : MonoBehaviour
             //  text  that  says  "Boss  defeated"
             bossTitleCard.SetActive(true);
             bossTitleCard.transform.GetChild(0).localScale = new Vector3(29, 3, 1);
-            bossTitleCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text +=
-                "  defeated";
+            bossTitleCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
+                "Himbolick defeated";
             Destroy(bossTitleCard.gameObject, 3f);
         }
     }
