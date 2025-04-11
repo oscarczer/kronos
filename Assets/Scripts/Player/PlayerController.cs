@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     PlayerData data;
 
     private Rigidbody2D playerRb;
-    public float startingTime = 30;
     private float remainingTime;
     private bool timePaused = false;
     private bool isDead = false;
@@ -118,6 +117,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GetCurrentDataFields();
+
         playerRb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         normalMusic = GameObject.Find("Music").GetComponent<AudioSource>();
@@ -125,7 +126,6 @@ public class PlayerController : MonoBehaviour
 
         remainingJumps = maxJumps;
         remainingDashes = maxDashes;
-        remainingTime = startingTime;
 
         attackCooldown = 0;
 
@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
         if (!isDead && !immobile)
         {
             // Constantly reduce time until 0 at which point hit a game over point
-            if (remainingTime <= 0)
+            if (remainingTime < 0)
             {
                 isDead = true;
                 normalMusic = GameObject.Find("Music").GetComponent<AudioSource>();
@@ -757,16 +757,17 @@ public class PlayerController : MonoBehaviour
         {
             timePaused = true;
         }
-
-        if (collision.gameObject.name == "Start Game Trigger")
+        if (collision.gameObject.name == "Load Data Trigger")
         {
             SetDefaultFields();
-            GetDataFields();
+            GetCurrentDataFields();
+        }
+        if (collision.gameObject.name == "Start Game Trigger")
+        {
             // only do this the first time
             if (!normalMusic.isPlaying)
             {
                 // Set timer to starting time
-                remainingTime = startingTime + 1;
                 timePaused = false;
                 // make timer visible
                 GameObject.Find("GUI").transform.GetChild(0).gameObject.SetActive(true);
@@ -782,7 +783,6 @@ public class PlayerController : MonoBehaviour
         {
             isTutorial = false;
             // Set timer to starting time
-            remainingTime = startingTime + 1;
             timePaused = false;
             // make timer visible
             GameObject.Find("GUI").transform.GetChild(0).gameObject.SetActive(true);
@@ -940,6 +940,30 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void GetCurrentDataFields()
+    {
+        remainingTime = data.RemainingTime;
+        maxJumps = data.MaxJumps;
+        maxDashes = data.MaxDashes;
+        dashDuration = data.DashDuration;
+        maxAttackCooldown = data.MaxAttackCooldown;
+        attackDamage = data.AttackDamage;
+        moveSpeed = data.MoveSpeed;
+        lifeStealConstant = data.LifeStealConstant;
+    }
+
+    private void SetCurrentDataFields()
+    {
+        data.RemainingTime = remainingTime;
+        data.MaxJumps = maxJumps;
+        data.MaxDashes = maxDashes;
+        data.DashDuration = dashDuration;
+        data.MaxAttackCooldown = maxAttackCooldown;
+        data.AttackDamage = attackDamage;
+        data.MoveSpeed = moveSpeed;
+        data.LifeStealConstant = lifeStealConstant;
+    }
+
     private void SetDefaultFields()
     {
         data.RemainingTime = 60;
@@ -950,17 +974,5 @@ public class PlayerController : MonoBehaviour
         data.AttackDamage = -3;
         data.MoveSpeed = 8;
         data.LifeStealConstant = 0;
-    }
-
-    private void GetDataFields()
-    {
-        remainingTime = data.RemainingTime;
-        maxJumps = data.MaxJumps;
-        maxDashes = data.MaxDashes;
-        dashDuration = data.DashDuration;
-        maxAttackCooldown = data.MaxAttackCooldown;
-        attackDamage = data.AttackDamage;
-        moveSpeed = data.MoveSpeed;
-        lifeStealConstant = data.LifeStealConstant;
     }
 }
