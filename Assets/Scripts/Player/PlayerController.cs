@@ -8,8 +8,10 @@ public class PlayerController : MonoBehaviour
 {
     #region Global Variables
     // Main Player Variables
+    [SerializeField]
+    PlayerData data;
+
     private Rigidbody2D playerRb;
-    private BoxCollider2D playerHitbox;
     public float startingTime = 30;
     private float remainingTime;
     private bool timePaused = false;
@@ -18,17 +20,17 @@ public class PlayerController : MonoBehaviour
     public bool gamePaused = false;
     public bool invulnerable = false;
 
-    public global::System.Single RemainingTime
+    public float RemainingTime
     {
         get => remainingTime;
         set => remainingTime = value;
     }
-    public global::System.Boolean TimePaused
+    public bool TimePaused
     {
         get => timePaused;
         set => timePaused = value;
     }
-    public global::System.Boolean IsDead
+    public bool IsDead
     {
         get => isDead;
         set => isDead = value;
@@ -117,7 +119,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
-        playerHitbox = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
         normalMusic = GameObject.Find("Music").GetComponent<AudioSource>();
         pauseOverlay = transform.GetChild(4).gameObject;
@@ -759,6 +760,8 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.name == "Start Game Trigger")
         {
+            SetDefaultFields();
+            GetDataFields();
             // only do this the first time
             if (!normalMusic.isPlaying)
             {
@@ -935,5 +938,29 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene("Level1", LoadSceneMode.Single);
                 break;
         }
+    }
+
+    private void SetDefaultFields()
+    {
+        data.RemainingTime = 60;
+        data.MaxJumps = 2;
+        data.MaxDashes = 1;
+        data.DashDuration = 0.08f;
+        data.MaxAttackCooldown = 0.4f;
+        data.AttackDamage = -3;
+        data.MoveSpeed = 8;
+        data.LifeStealConstant = 0;
+    }
+
+    private void GetDataFields()
+    {
+        remainingTime = data.RemainingTime;
+        maxJumps = data.MaxJumps;
+        maxDashes = data.MaxDashes;
+        dashDuration = data.DashDuration;
+        maxAttackCooldown = data.MaxAttackCooldown;
+        attackDamage = data.AttackDamage;
+        moveSpeed = data.MoveSpeed;
+        lifeStealConstant = data.LifeStealConstant;
     }
 }
