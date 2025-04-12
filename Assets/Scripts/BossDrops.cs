@@ -19,7 +19,7 @@ public class BossDrops : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             // confirm that the text is visible
             if (transform.GetChild(0).gameObject.activeSelf)
