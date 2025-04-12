@@ -952,7 +952,7 @@ public class PlayerController : MonoBehaviour
         lifeStealConstant = data.LifeStealConstant;
     }
 
-    private void SetCurrentDataFields()
+    public void SetCurrentDataFields()
     {
         data.RemainingTime = remainingTime;
         data.MaxJumps = maxJumps;

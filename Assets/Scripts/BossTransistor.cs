@@ -28,6 +28,7 @@ public class BossTransistor : MonoBehaviour
             // Confirm that the text is visible
             if (transform.GetChild(0).gameObject.activeSelf)
             {
+                player.SetCurrentDataFields();
                 StartCoroutine(CreateScene());
             }
         }
