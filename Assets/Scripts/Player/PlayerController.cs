@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour
             {
                 isJumping = false;
             }
-            // Jump higher if we keep holding c
+            // Jump higher if we keep holding
             if (
                 isJumping
                 && (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
@@ -313,7 +313,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (remainingJumps > 0 && Input.GetKeyDown(KeyCode.Space) && !isKnocking)
+        if (
+            remainingJumps > 0
+            && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
+            && !isKnocking
+        )
         {
             anim.SetTrigger("jump");
             upSpeed = jumpSpeed;
