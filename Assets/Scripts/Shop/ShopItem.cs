@@ -28,7 +28,7 @@ public class ShopItem : MonoBehaviour
     void Update()
     {
         // purchase things (uses attack button)
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             // confirm that the text is visible
             if (transform.GetChild(0).gameObject.activeSelf)

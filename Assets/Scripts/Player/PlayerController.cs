@@ -200,8 +200,8 @@ public class PlayerController : MonoBehaviour
     // general movement handler
     private void Move()
     {
-        bool right = Input.GetKey(KeyCode.RightArrow);
-        bool left = Input.GetKey(KeyCode.LeftArrow);
+        bool right = Input.GetKey(KeyCode.D);
+        bool left = Input.GetKey(KeyCode.A);
 
         if (right || left)
         {
@@ -280,7 +280,11 @@ public class PlayerController : MonoBehaviour
                 isJumping = false;
             }
             // Jump higher if we keep holding c
-            if (isJumping && Input.GetKey(KeyCode.Z) && !isKnocking)
+            if (
+                isJumping
+                && (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
+                && !isKnocking
+            )
             {
                 upSpeed -= Time.deltaTime * 0.54f * gravAcc;
                 // going up still:
@@ -309,7 +313,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (remainingJumps > 0 && Input.GetKeyDown(KeyCode.Z) && !isKnocking)
+        if (remainingJumps > 0 && Input.GetKeyDown(KeyCode.Space) && !isKnocking)
         {
             anim.SetTrigger("jump");
             upSpeed = jumpSpeed;
@@ -344,7 +348,7 @@ public class PlayerController : MonoBehaviour
 
                 //float vertical = Input.GetAxis("Vertical");
 
-                bool right = Input.GetKey(KeyCode.RightArrow);
+                bool right = Input.GetKey(KeyCode.D);
 
                 if (right || facingRight)
                 {
@@ -363,7 +367,7 @@ public class PlayerController : MonoBehaviour
     // down platform action handler
     private void DownPlatform()
     {
-        if (onPlatform && (Input.GetKey(KeyCode.DownArrow)))
+        if (onPlatform && Input.GetKey(KeyCode.S))
         {
             isGrounded = false;
             onPlatform = false;
