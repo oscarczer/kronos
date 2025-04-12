@@ -920,24 +920,7 @@ public class PlayerController : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Level2":
-                SceneManager.LoadScene("Level2", LoadSceneMode.Single);
-                break;
-            case "BossFight2":
-                SceneManager.LoadScene("Level2", LoadSceneMode.Single);
-                break;
-            case "Level3":
-                SceneManager.LoadScene("Level3", LoadSceneMode.Single);
-                break;
-            case "BossFight3":
-                SceneManager.LoadScene("Level3", LoadSceneMode.Single);
-                break;
-            default:
-                SceneManager.LoadScene("Level1", LoadSceneMode.Single);
-                break;
-        }
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
     }
 
     private void GetCurrentDataFields()
