@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
     private bool platformFalling = false;
     private bool canGoLeft = false;
     private bool canGoRight = false;
+    private bool isAttacking = false;
 
     // Other Movement Variables
     public float moveSpeed = 8.0f;
@@ -175,7 +176,7 @@ public class PlayerController : MonoBehaviour
             Jump();
             DownPlatform();
             Dash();
-            Attack();
+            AttackWrapper();
             CheckGround();
             CheckWalls();
             KnockBack();
@@ -212,15 +213,18 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("walking", false);
         }
 
-        if (right)
+        if (!isAttacking)
         {
-            facingRight = true;
-            transform.localScale = new Vector2(1, 1);
-        }
-        else if (left)
-        {
-            facingRight = false;
-            transform.localScale = new Vector2(-1, 1);
+            if (right)
+            {
+                facingRight = true;
+                transform.localScale = new Vector2(1, 1);
+            }
+            else if (left)
+            {
+                facingRight = false;
+                transform.localScale = new Vector2(-1, 1);
+            }
         }
 
         // Dashing code:
@@ -583,10 +587,9 @@ public class PlayerController : MonoBehaviour
             platformLayer
         );
 
-        return !(
-            (groundLeft.collider != null || groundRight.collider != null)
-            || (platformLeft.collider != null || platformRight.collider != null)
-        );
+        return !(groundLeft.collider != null || groundRight.collider != null)
+            || platformLeft.collider != null
+            || platformRight.collider != null;
     }
 
     private bool FutureCheckCeiling(Vector3 newPosition)
@@ -637,53 +640,78 @@ public class PlayerController : MonoBehaviour
     }
 
     // If attack is availabe, deal damage to any enemies inside the hurtbox
-    private void Attack()
+    private void AttackWrapper()
     {
-        if (Input.GetKeyDown(KeyCode.X) && attackCooldown <= 0)
+        if (attackCooldown <= 0)
         {
-            anim.SetTrigger("attack");
-            attackSFX.Play();
-
-            Collider2D[] hitEnemies = Physics2D.OverlapAreaAll(
-                attackPoint1.position,
-                attackPoint2.position,
-                enemyLayers
-            );
-
-            foreach (Collider2D enemy in hitEnemies)
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                if (enemy.name == "Hitbox")
-                {
-                    enemy.GetComponentInParent<EnemyController>().TakeDamage(attackDamage);
-                }
-                else if (enemy.tag == "Bullet")
-                {
-                    enemy.GetComponent<EnemyController>().Die();
-                }
-                else if (enemy.tag == "OrbBoss")
-                {
-                    enemy.GetComponent<OrbBossController>().TakeDamage(attackDamage);
-                }
-                else if (enemy.tag == "SkeleBoss")
-                {
-                    enemy.GetComponent<SkeleBoss>().TakeDamage(attackDamage);
-                }
-                else if (enemy.tag == "Dirt")
-                {
-                    Destroy(enemy.gameObject);
-                }
-                else if (enemy.tag == "WormBody")
-                {
-                    enemy.GetComponent<WormBossBody>().health += attackDamage;
-                }
-                else if (enemy.tag == "WormHead")
-                {
-                    enemy.GetComponent<WormBossHead>().health += attackDamage;
-                }
+                isAttacking = true;
+
+                transform.localScale = new Vector2(1, 1);
+                Attack();
             }
-            attackCooldown = maxAttackCooldown;
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                isAttacking = true;
+
+                transform.localScale = new Vector2(-1, 1);
+                Attack();
+            }
         }
         attackCooldown -= Time.deltaTime;
+    }
+
+    private void Attack()
+    {
+        anim.SetTrigger("attack");
+        attackSFX.Play();
+
+        Collider2D[] hitEnemies = Physics2D.OverlapAreaAll(
+            attackPoint1.position,
+            attackPoint2.position,
+            enemyLayers
+        );
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            if (enemy.name == "Hitbox")
+            {
+                enemy.GetComponentInParent<EnemyController>().TakeDamage(attackDamage);
+            }
+            else if (enemy.tag == "Bullet")
+            {
+                enemy.GetComponent<EnemyController>().Die();
+            }
+            else if (enemy.tag == "OrbBoss")
+            {
+                enemy.GetComponent<OrbBossController>().TakeDamage(attackDamage);
+            }
+            else if (enemy.tag == "SkeleBoss")
+            {
+                enemy.GetComponent<SkeleBoss>().TakeDamage(attackDamage);
+            }
+            else if (enemy.tag == "Dirt")
+            {
+                Destroy(enemy.gameObject);
+            }
+            else if (enemy.tag == "WormBody")
+            {
+                enemy.GetComponent<WormBossBody>().health += attackDamage;
+            }
+            else if (enemy.tag == "WormHead")
+            {
+                enemy.GetComponent<WormBossHead>().health += attackDamage;
+            }
+        }
+        attackCooldown = maxAttackCooldown;
+        StartCoroutine(AttackWait());
+    }
+
+    private IEnumerator AttackWait()
+    {
+        yield return new WaitForSeconds(0.3f);
+        isAttacking = false;
     }
 
     public void StartKnockBack(Vector3 enemyPos)
