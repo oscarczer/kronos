@@ -46020,7 +46020,11 @@ PrefabInstance:
       value: 'Congratulations!
 
 
-        You'' made it out with time to spare.'
+        You'' made it out with time to spare.
+
+
+        [enter]
+        to continue'
       objectReference: {fileID: 0}
     - target: {fileID: 2889013557658125899, guid: d0d1db14baff44c98b76485b145e54b5, type: 3}
       propertyPath: newScene
