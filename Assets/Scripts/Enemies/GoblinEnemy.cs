@@ -158,14 +158,8 @@ public class GoblinEnemy : FollowingEnemy
         if (!isJumping)
         {
             bool previouslyGrounded = isGrounded || onPlatform;
-            Vector2 rayStartLeft = new Vector2(
-                transform.position.x - 0.2f,
-                transform.position.y - 0.8f
-            );
-            Vector2 rayStartRight = new Vector2(
-                transform.position.x + 0.2f,
-                transform.position.y - 0.8f
-            );
+            Vector2 rayStartLeft = new(transform.position.x - 0.2f, transform.position.y - 0.8f);
+            Vector2 rayStartRight = new(transform.position.x + 0.2f, transform.position.y - 0.8f);
 
             RaycastHit2D groundLeft = Physics2D.Raycast(
                 rayStartLeft,
@@ -206,48 +200,30 @@ public class GoblinEnemy : FollowingEnemy
             }
             else { }
         }
-        //  Checking  ceiling:
+        // Checking ceiling:
         else
         {
-            Vector2 rayStartLeft = new Vector2(
-                transform.position.x - 0.2f,
-                transform.position.y + 0.2f
-            );
-            Vector2 rayStartRight = new Vector2(
-                transform.position.x + 0.2f,
-                transform.position.y + 0.2f
-            );
+            Vector2 rayStartLeft = new(transform.position.x - 0.2f, transform.position.y + 0.2f);
+            Vector2 rayStartRight = new(transform.position.x + 0.2f, transform.position.y + 0.2f);
 
             if (
                 Physics2D.Raycast(rayStartLeft, Vector2.up, 0.15f, groundLayer).collider != null
                 || Physics2D.Raycast(rayStartRight, Vector2.up, 0.15f, groundLayer).collider != null
             )
             {
-                //  Hit  head  on  ceiling
+                // Hit head on ceiling
                 upSpeed = 0;
             }
         }
     }
 
-    //  wall  collision  check
+    // wall collision check
     private void CheckWalls()
     {
-        Vector2 rayStartBottomLeft = new Vector2(
-            transform.position.x - 0.2f,
-            transform.position.y - 0.9f
-        );
-        Vector2 rayStartBottomRight = new Vector2(
-            transform.position.x + 0.2f,
-            transform.position.y - 0.9f
-        );
-        Vector2 rayStartTopLeft = new Vector2(
-            transform.position.x - 0.2f,
-            transform.position.y + 0.2f
-        );
-        Vector2 rayStartTopRight = new Vector2(
-            transform.position.x + 0.2f,
-            transform.position.y + 0.2f
-        );
+        Vector2 rayStartBottomLeft = new(transform.position.x - 0.2f, transform.position.y - 0.9f);
+        Vector2 rayStartBottomRight = new(transform.position.x + 0.2f, transform.position.y - 0.9f);
+        Vector2 rayStartTopLeft = new(transform.position.x - 0.2f, transform.position.y + 0.2f);
+        Vector2 rayStartTopRight = new(transform.position.x + 0.2f, transform.position.y + 0.2f);
 
         canGoLeft = !(
             Physics2D.Raycast(rayStartBottomLeft, Vector2.left, 0.15f, groundLayer).collider != null
@@ -266,11 +242,11 @@ public class GoblinEnemy : FollowingEnemy
     {
         if (right)
         {
-            Vector2 rayStartTopRight = new Vector2(
+            Vector2 rayStartTopRight = new(
                 transform.position.x + 0.2f,
                 transform.position.y + 0.2f
             );
-            Vector2 rayStartBottomRight = new Vector2(
+            Vector2 rayStartBottomRight = new(
                 transform.position.x + 0.2f,
                 transform.position.y - 0.9f
             );
@@ -284,14 +260,11 @@ public class GoblinEnemy : FollowingEnemy
         }
         else
         {
-            Vector2 rayStartBottomLeft = new Vector2(
+            Vector2 rayStartBottomLeft = new(
                 transform.position.x - 0.2f,
                 transform.position.y - 0.9f
             );
-            Vector2 rayStartTopLeft = new Vector2(
-                transform.position.x - 0.2f,
-                transform.position.y + 0.2f
-            );
+            Vector2 rayStartTopLeft = new(transform.position.x - 0.2f, transform.position.y + 0.2f);
 
             return !(
                 Physics2D.Raycast(rayStartBottomLeft, Vector2.left, 0.15f, groundLayer).collider
@@ -309,14 +282,8 @@ public class GoblinEnemy : FollowingEnemy
             return true;
         }
 
-        Vector2 rayStartLeft = new Vector2(
-            transform.position.x - 0.2f,
-            transform.position.y - 0.8f
-        );
-        Vector2 rayStartRight = new Vector2(
-            transform.position.x + 0.2f,
-            transform.position.y - 0.8f
-        );
+        Vector2 rayStartLeft = new(transform.position.x - 0.2f, transform.position.y - 0.8f);
+        Vector2 rayStartRight = new(transform.position.x + 0.2f, transform.position.y - 0.8f);
 
         RaycastHit2D groundLeft = Physics2D.Raycast(rayStartLeft, Vector2.down, 0.35f, groundLayer);
         RaycastHit2D groundRight = Physics2D.Raycast(
@@ -346,14 +313,8 @@ public class GoblinEnemy : FollowingEnemy
 
     private bool FutureCheckCeiling(Vector3 newPosition)
     {
-        Vector2 rayStartLeft = new Vector2(
-            transform.position.x - 0.2f,
-            transform.position.y + 0.2f
-        );
-        Vector2 rayStartRight = new Vector2(
-            transform.position.x + 0.2f,
-            transform.position.y + 0.2f
-        );
+        Vector2 rayStartLeft = new(transform.position.x - 0.2f, transform.position.y + 0.2f);
+        Vector2 rayStartRight = new(transform.position.x + 0.2f, transform.position.y + 0.2f);
 
         if (
             Physics2D.Raycast(rayStartLeft, Vector2.up, 0.15f, groundLayer).collider != null
@@ -368,7 +329,7 @@ public class GoblinEnemy : FollowingEnemy
         }
     }
 
-    //  helper  function  for  calculating  landing  position
+    // helper function for calculating landing position
     private void landPosition(RaycastHit2D hitLeft, RaycastHit2D hitRight)
     {
         float updatedYPos;
@@ -389,10 +350,10 @@ public class GoblinEnemy : FollowingEnemy
         transform.position = new Vector3(transform.position.x, updatedYPos, transform.position.z);
     }
 
-    //  Platform  falling  timing  sequence
+    // Platform falling timing sequence
     private IEnumerator PlatformFallDelay()
     {
-        //  Wait  for  0.05  seconds.
+        // Wait for 0.05 seconds.
         yield return new WaitForSeconds(0.3f);
 
         platformFalling = false;

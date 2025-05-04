@@ -27,7 +27,7 @@ public class TimerDisplay : MonoBehaviour
     void Update()
     {
         // if the players time has changed significatly in the last frame,
-        //    do some visual stuff with the display
+        //  do some visual stuff with the display
         if (animating == 0)
         {
             previousTime = time;

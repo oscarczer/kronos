@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkeleBoss : MonoBehaviour
 {
-    //  General
+    // General
     private Rigidbody2D rigidBody;
     public float jumpHeight;
     private GameObject player;
@@ -19,30 +19,30 @@ public class SkeleBoss : MonoBehaviour
     public bool cutscene = true;
     public GameObject bossTitleCard;
 
-    //  Audio
+    // Audio
     public AudioSource bossWin;
     public AudioSource wind;
     public AudioSource music;
 
-    //  Jumping  Attack
+    // Jumping Attack
     public float jumpCooldown = 0.4f;
     private float remainingJumpCooldown;
     private int jumpsRemaining = 3;
     public GameObject timerDrop;
 
-    //  Attack  1
+    // Attack 1
     private Transform attackOnePoint1;
     private Transform attackOnePoint2;
     public float attackCooldown = 1f;
     private float remainingAttackCooldown;
     private int attack1Remaining = 2;
 
-    //  Attack  2
+    // Attack 2
     private int attack2Remaining = 1;
     private Transform attackTwoPoint1;
     private Transform attackTwoPoint2;
 
-    //  Start  is  called  before  the  first  frame  update
+    // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -59,7 +59,7 @@ public class SkeleBoss : MonoBehaviour
         StartCoroutine(CutScene());
     }
 
-    //  Update  is  called  once  per  frame
+    // TODO: Fix spaghetti code
     void Update()
     {
         if (player.GetComponent<PlayerController>().IsDead || isDead || cutscene)
@@ -305,7 +305,7 @@ public class SkeleBoss : MonoBehaviour
         anim.SetTrigger("isDead");
         Destroy(gameObject, 0.8f);
 
-        //  text  that  says  "Humphrey  defeated"
+        // text that says "Humphrey defeated"
         bossTitleCard.SetActive(true);
         bossTitleCard.transform.GetChild(0).localScale = new Vector3(29, 3, 1);
         bossTitleCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =

@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
         get => anim;
         set => anim = value;
     }
-    public global::System.Boolean IsDead
+    public bool IsDead
     {
         get => isDead;
         set => isDead = value;
@@ -30,7 +30,7 @@ public class EnemyController : MonoBehaviour
     public float maxHealth;
     private float currentHealth;
 
-    public global::System.Single CurrentHealth
+    public float CurrentHealth
     {
         get => currentHealth;
         set => currentHealth = value;
@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour
     private float attackCooldown;
     public float maxAttackCooldown = 0.5f;
 
-    public global::System.Single AttackCooldown
+    public float AttackCooldown
     {
         get => attackCooldown;
         set => attackCooldown = value;
@@ -57,7 +57,7 @@ public class EnemyController : MonoBehaviour
     // KnockUp Variables
     public bool knockUp = true;
     public bool isKnockingUp = false;
-    private float knockUpInitial = 10;
+    private readonly float knockUpInitial = 10;
     private float knockUpCurrent = 0.0f;
     private float initialY;
 
@@ -66,12 +66,12 @@ public class EnemyController : MonoBehaviour
         get => knockDirection;
         set => knockDirection = value;
     }
-    public global::System.Boolean IsKnocking
+    public bool IsKnocking
     {
         get => isKnocking;
         set => isKnocking = value;
     }
-    public global::System.Single KnockCurrent
+    public float KnockCurrent
     {
         get => knockCurrent;
         set => knockCurrent = value;

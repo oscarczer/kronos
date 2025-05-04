@@ -19,13 +19,13 @@ public class ItemRandomiser : MonoBehaviour
         // pick 3 random shop items, and put them in the shop
         shuffle(items);
 
-        Vector3 item1pos = new Vector3(pos.x - 4, pos.y, pos.z);
+        Vector3 item1pos = new(pos.x - 4, pos.y, pos.z);
         Instantiate(items[0], item1pos, rot, this.transform);
 
-        Vector3 item2pos = new Vector3(pos.x, pos.y, pos.z);
+        Vector3 item2pos = new(pos.x, pos.y, pos.z);
         Instantiate(items[1], item2pos, rot, this.transform);
 
-        Vector3 item3pos = new Vector3(pos.x + 4, pos.y, pos.z);
+        Vector3 item3pos = new(pos.x + 4, pos.y, pos.z);
         Instantiate(items[2], item3pos, rot, this.transform);
     }
 

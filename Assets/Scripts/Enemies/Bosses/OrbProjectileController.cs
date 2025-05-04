@@ -6,7 +6,7 @@ public class OrbProjectileController : MonoBehaviour
     int remainingCollisions = 3;
     private PlayerController player;
     public Vector2 thrust;
-    private float speed = 5f;
+    private readonly float speed = 5f;
     public GameObject healthPopup;
 
     // Start is called before the first frame update

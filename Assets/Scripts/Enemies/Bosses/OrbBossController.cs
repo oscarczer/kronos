@@ -13,9 +13,9 @@ public class OrbBossController : MonoBehaviour
     public GameObject bossTitleCard;
 
     private float timeSinceLastTeleport;
-    private float cooldown = 5.0f;
+    private readonly float cooldown = 5.0f;
 
-    private float maxHealth = 50f;
+    private readonly float maxHealth = 50f;
     public float currentHealth;
     private bool angry = false;
 
@@ -27,7 +27,7 @@ public class OrbBossController : MonoBehaviour
     public AudioSource wind;
     public AudioSource music;
 
-    //  Start  is  called  before  the  first  frame  update
+    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -37,6 +37,7 @@ public class OrbBossController : MonoBehaviour
         StartCoroutine(CutScene());
     }
 
+    // Open cutscene on spawn
     private IEnumerator CutScene()
     {
         player.immobile = true;
@@ -53,7 +54,7 @@ public class OrbBossController : MonoBehaviour
             );
             yield return null;
         }
-        //  Show  name  here
+        // Show name here
         bossTitleCard.SetActive(true);
 
         yield return new WaitForSeconds(2f);
@@ -61,7 +62,7 @@ public class OrbBossController : MonoBehaviour
         bossTitleCard.SetActive(false);
         yield return new WaitForSeconds(0.3f);
 
-        //  Game  on
+        // Game on
         circle.enabled = true;
 
         cutscene = false;
@@ -76,7 +77,7 @@ public class OrbBossController : MonoBehaviour
         yield return null;
     }
 
-    //  Update  is  called  once  per  frame
+    // Update is called once per frame
     void Update()
     {
         if (cutscene || player.IsDead)
@@ -85,7 +86,7 @@ public class OrbBossController : MonoBehaviour
             return;
         }
 
-        //  teleport  and  attack  loop
+        // Teleport and attack loop
         if (timeSinceLastTeleport < cooldown)
         {
             timeSinceLastTeleport += Time.deltaTime;
@@ -95,7 +96,7 @@ public class OrbBossController : MonoBehaviour
         {
             Teleport();
             timeSinceLastTeleport = 0f;
-            //  pick  a  random  attack  to  do
+            // Pick a random attack to do
             int randomAttack = Random.Range(0, 3);
             switch (randomAttack)
             {
@@ -111,7 +112,7 @@ public class OrbBossController : MonoBehaviour
             }
         }
 
-        //  when  low  health,  get  mad
+        // When low health, enter second phase
         if (!angry && currentHealth < maxHealth / 3)
         {
             GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
@@ -123,9 +124,9 @@ public class OrbBossController : MonoBehaviour
     private void Spawn(float angle)
     {
         GameObject shot;
-        Vector2 velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        Vector2 velocity = new(Mathf.Cos(angle), Mathf.Sin(angle));
 
-        //  1  in  15  of  being  helpful
+        // 1 in 15 chance of being helpful
         if (Random.Range(0, 15) == 0)
         {
             shot = Instantiate(timePickup, transform.position, timePickup.transform.rotation);
@@ -138,10 +139,9 @@ public class OrbBossController : MonoBehaviour
             shot = Instantiate(projectile, transform.position, projectile.transform.rotation);
             shot.GetComponent<OrbProjectileController>().thrust = velocity;
         }
-
-        //bossShoot.Play();
     }
 
+    // Teleport within predefined bounds
     private void Teleport()
     {
         rb.position = new Vector2(Random.Range(-19f, 19f), Random.Range(-7f, 6f));
@@ -155,6 +155,7 @@ public class OrbBossController : MonoBehaviour
             Spawn(Mathf.Deg2Rad * i);
         }
         yield return new WaitForSeconds(0.5f);
+
         if (!angry)
             yield return new WaitForSeconds(0.5f);
 
@@ -162,6 +163,7 @@ public class OrbBossController : MonoBehaviour
         {
             Spawn(Mathf.Deg2Rad * i);
         }
+
         if (angry)
         {
             yield return new WaitForSeconds(0.5f);
@@ -194,7 +196,7 @@ public class OrbBossController : MonoBehaviour
 
     private IEnumerator ExPlusAttack()
     {
-        //  shoots  in  4  directions  orthogonally,  then  4  directions  diagonally
+        // Shoots in 4 directions orthogonally, then 4 directions diagonally
         yield return new WaitForSeconds(0.5f);
         for (int j = 0; j < 4; j++)
         {
@@ -221,18 +223,6 @@ public class OrbBossController : MonoBehaviour
         yield return null;
         if (angry)
             Teleport();
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (
-            collision.gameObject.tag == "Projectile"
-            || collision.gameObject.tag == "Player"
-            || collision.gameObject.tag == "Platform"
-        )
-        {
-            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-        }
     }
 
     public void TakeDamage(float damage)
@@ -275,7 +265,7 @@ public class OrbBossController : MonoBehaviour
         anim.SetTrigger("isDead");
         Destroy(gameObject, 1f);
 
-        //  text  that  says  "hubert  defeated"
+        // text that says "hubert defeated"
         bossTitleCard.SetActive(true);
         bossTitleCard.transform.GetChild(0).localScale = new Vector3(25, 3, 1);
         bossTitleCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
