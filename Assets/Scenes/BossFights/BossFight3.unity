@@ -16519,7 +16519,7 @@ GameObject:
   - component: {fileID: 517342172}
   - component: {fileID: 517342171}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: EndWormFight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
