@@ -38875,7 +38875,7 @@ MonoBehaviour:
   wind: {fileID: 781072662}
   music: {fileID: 432654819}
   jumpCooldown: 0.5
-  timerDrop: {fileID: 4205612054138229810, guid: cc0577721a76c4ab0a08ea2ef9b81fc9, type: 3}
+  timerDrop: {fileID: 8800718443409874191, guid: f4fdb64f5efa940179639678137fbc44, type: 3}
   attackCooldown: 1
 --- !u!95 &1037726977
 Animator:

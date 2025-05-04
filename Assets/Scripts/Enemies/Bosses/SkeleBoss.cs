@@ -180,11 +180,12 @@ public class SkeleBoss : MonoBehaviour
         int randomNum = Random.Range(0, 2);
         if (randomNum == 0)
         {
-            Instantiate(
+            GameObject pickup = Instantiate(
                 timerDrop,
                 new Vector2(transform.position.x, -7.5f),
                 timerDrop.transform.rotation
             );
+            pickup.GetComponent<Collectible>().despawn = true;
         }
 
         rigidBody.AddForce(new Vector2(distanceFromPlayer / 4, jumpHeight), ForceMode2D.Impulse);
