@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : FollowingEnemy
 {
-    private float maxAliveTime = 5.0f;
+    private readonly float maxAliveTime = 5.0f;
     private float aliveTime;
     public AudioSource explodeSFX;
 

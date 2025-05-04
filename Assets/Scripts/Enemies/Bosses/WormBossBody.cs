@@ -8,7 +8,7 @@ public class WormBossBody : MonoBehaviour
     private bool isDead = false;
     public Sprite wormHead;
 
-    //  Update  is  called  once  per  frame
+    // Update is called once per frame
     void Update()
     {
         if (isDead)

@@ -9,10 +9,10 @@ public class SlimeEnemyBlue : EnemyController
     private int positionIndex;
     private Vector3 jumpDirection;
     private float jumpSpeed;
-    private float maxJumpSpeed = 2.5f;
+    private readonly float maxJumpSpeed = 2.5f;
     private Vector3 targetPos;
 
-    //  Start  is  called  before  the  first  frame  update
+    // Start is called before the first frame update
     void Start()
     {
         positionIndex = 0;
@@ -22,7 +22,7 @@ public class SlimeEnemyBlue : EnemyController
         Anim = GetComponent<Animator>();
     }
 
-    //  Update  is  called  once  per  frame
+    // Update is called once per frame
     void Update()
     {
         if (canJump)
@@ -64,7 +64,7 @@ public class SlimeEnemyBlue : EnemyController
         }
     }
 
-    //  When  colliding  with  an  enemy,  player  takes  damage
+    // When colliding with an enemy, player takes damage
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -75,14 +75,14 @@ public class SlimeEnemyBlue : EnemyController
                 playerController.AlterTime(attackDamage);
                 playerController.StartKnockBack(transform.position);
 
-                //AttackCooldown  =  maxAttackCooldown;
+                //AttackCooldown = maxAttackCooldown;
             }
         }
     }
 
     private IEnumerator JumpDelay()
     {
-        //  Wait  for  0.05  seconds.
+        // Wait for 0.05 seconds.
         yield return new WaitForSeconds(0.6f);
         canJump = true;
     }

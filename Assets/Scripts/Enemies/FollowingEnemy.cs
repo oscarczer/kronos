@@ -14,12 +14,12 @@ public class FollowingEnemy : EnemyController
         get => cam;
         set => cam = value;
     }
-    public global::System.Single ScreenWidth
+    public float ScreenWidth
     {
         get => screenWidth;
         set => screenWidth = value;
     }
-    public global::System.Single ScreenHeight
+    public float ScreenHeight
     {
         get => screenHeight;
         set => screenHeight = value;

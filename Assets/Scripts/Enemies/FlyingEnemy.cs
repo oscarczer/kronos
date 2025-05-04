@@ -5,7 +5,7 @@ public class FlyingEnemy : FollowingEnemy
     // Start is called before the first frame update
     void Start()
     {
-        Player = (GameObject.FindGameObjectWithTag("Player"));
+        Player = GameObject.FindGameObjectWithTag("Player");
         Cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         Anim = GetComponent<Animator>();
         CurrentHealth = maxHealth;
