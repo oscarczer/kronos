@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class WormBossHead : MonoBehaviour
@@ -52,7 +49,6 @@ public class WormBossHead : MonoBehaviour
             if (transform.childCount == 1)
             {
                 moveSpeed = 0.0015f;
-                Shoot();
             }
         }
 
@@ -106,12 +102,5 @@ public class WormBossHead : MonoBehaviour
 
         WormBossBody tail = bodies[bodies.Length - 1].gameObject.GetComponent<WormBossBody>();
         tail.front = bodies[bodies.Length - 2].gameObject;
-    }
-
-    void Shoot()
-    {
-        Instantiate(bullet, transform.position, transform.rotation * Quaternion.Euler(0f, 90f, 0f));
-        // Instantiate(bullet, transform.position, transform.rotation * Quaternion.Euler (0f, 20f, 0f));
-        // Instantiate(bullet, transform.position, transform.rotation * Quaternion.Euler (0f, -20f, 0f));
     }
 }
