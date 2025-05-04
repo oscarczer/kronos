@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class BossTransistor : MonoBehaviour
 {
-    // update player stats
+    // Update player stats
     private GameObject playerObj;
     private PlayerController player;
     public string newScene;
@@ -18,7 +18,7 @@ public class BossTransistor : MonoBehaviour
 
     void Update()
     {
-        // purchase things (uses attack button)
+        // Purchase items
         if (Input.GetKeyDown(KeyCode.Return))
         {
             // Confirm that the text is visible
@@ -76,7 +76,7 @@ public class BossTransistor : MonoBehaviour
         string objname = collision.gameObject.name;
         if (objname == "Player")
         {
-            // turn text off
+            // Turn text off
             transform.GetChild(0).gameObject.SetActive(false);
         }
     }

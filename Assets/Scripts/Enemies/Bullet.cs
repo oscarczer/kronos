@@ -51,12 +51,12 @@ public class Bullet : FollowingEnemy
         {
             PlayerController playerController = Player.GetComponent<PlayerController>();
 
-            if (playerController.invulnerable) // dashing or something
+            if (playerController.invulnerable) // e.g. dashing
             {
-                // don't want to play the explode animation
+                // Don't want to play the explode animation
                 Destroy(gameObject);
             }
-            else // do damage as per normal
+            else // Do damage as per normal
             {
                 playerController.AlterTime(attackDamage);
                 playerController.StartKnockBack(transform.position);
@@ -82,7 +82,7 @@ public class Bullet : FollowingEnemy
         GetComponent<CircleCollider2D>().enabled = false;
     }
 
-    // delete bullet if the player runs to a different screen
+    // Delete bullet if the player runs to a different screen
     public override void StopChasingOffScreen()
     {
         if (OusideCamView())

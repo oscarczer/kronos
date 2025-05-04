@@ -17,7 +17,7 @@ public class BossDrops : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            // confirm that the text is visible
+            // Confirm that the text is visible
             if (transform.GetChild(0).gameObject.activeSelf)
             {
                 if (jump)
@@ -45,7 +45,7 @@ public class BossDrops : MonoBehaviour
         string objname = collision.gameObject.name;
         if (objname == "Player")
         {
-            // make text visible
+            // Make text visible
             transform.GetChild(0).gameObject.SetActive(true);
         }
     }
@@ -55,7 +55,7 @@ public class BossDrops : MonoBehaviour
         string objname = collision.gameObject.name;
         if (objname == "Player")
         {
-            // turn text off
+            // Turn text off
             transform.GetChild(0).gameObject.SetActive(false);
         }
     }

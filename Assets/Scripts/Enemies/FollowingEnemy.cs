@@ -72,7 +72,7 @@ public class FollowingEnemy : EnemyController
         }
     }
 
-    // stop following player when they run to a different screen
+    // Stop following player when they run to a different screen
     public virtual void StopChasingOffScreen()
     {
         if (OusideCamView())

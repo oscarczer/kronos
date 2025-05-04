@@ -54,7 +54,6 @@ public class TextAnimate : MonoBehaviour
 
     private IEnumerator TextDelayStart()
     {
-        // Wait for 0.1 seconds.
         yield return new WaitForSeconds(0.5f);
         // Show a new character
         charsVisible++;
@@ -63,7 +62,6 @@ public class TextAnimate : MonoBehaviour
 
     private IEnumerator TextDelay()
     {
-        // Wait for 0.05 seconds.
         yield return new WaitForSeconds(0.05f);
         // Show a new character
         charsVisible++;

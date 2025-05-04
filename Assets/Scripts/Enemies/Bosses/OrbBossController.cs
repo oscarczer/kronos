@@ -14,13 +14,10 @@ public class OrbBossController : MonoBehaviour
 
     private float timeSinceLastTeleport;
     private readonly float cooldown = 5.0f;
-
     private readonly float maxHealth = 50f;
     public float currentHealth;
     private bool angry = false;
-
     public bool cutscene = true;
-
     public GameObject healthPopup;
     public AudioSource bossShoot;
     public AudioSource bossWin;
@@ -61,7 +58,7 @@ public class OrbBossController : MonoBehaviour
         bossTitleCard.SetActive(false);
         yield return new WaitForSeconds(0.3f);
 
-        // Game on
+        // Start fight
         circle.enabled = true;
 
         cutscene = false;
@@ -263,7 +260,7 @@ public class OrbBossController : MonoBehaviour
         anim.SetTrigger("isDead");
         Destroy(gameObject, 1f);
 
-        // text that says "hubert defeated"
+        // Show boss defeated text
         bossTitleCard.SetActive(true);
         bossTitleCard.transform.GetChild(0).localScale = new Vector3(25, 3, 1);
         bossTitleCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =

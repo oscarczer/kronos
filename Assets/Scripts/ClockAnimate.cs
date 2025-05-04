@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class ClockAnimate : MonoBehaviour
 {
-    // we need to make the hands rotate
     private Transform hoursHand;
     private Transform secondsHand;
 
-    // rotation speeds
+    // Rotation speeds
     public float hoursHandSpeed = 20f;
     public float secondsHandSpeed = 240f;
 

@@ -58,7 +58,7 @@ public class GoblinEnemy : FollowingEnemy
         }
     }
 
-    // general movement handler
+    // General movement handler
     private void Move()
     {
         if (
@@ -92,13 +92,12 @@ public class GoblinEnemy : FollowingEnemy
         }
     }
 
-    // jump action handler
+    // Jump action handler
     private void Jump()
     {
         if (Player.transform.position.y > transform.position.y + 0.2f && (isGrounded || onPlatform))
         {
             upSpeed = jumpSpeed;
-            // going up still:
             Vector3 newPos = transform.position + Vector3.up * upSpeed * Time.deltaTime;
             if (FutureCheckCeiling(newPos))
             {
@@ -110,7 +109,7 @@ public class GoblinEnemy : FollowingEnemy
         }
     }
 
-    // down platform action handler
+    // Down platform action handler
     private void DownPlatform()
     {
         if (onPlatform && Player.transform.position.x < transform.position.x - .5f)
@@ -122,7 +121,7 @@ public class GoblinEnemy : FollowingEnemy
         }
     }
 
-    // ground collision check
+    // Ground collision check
     private void CheckGround()
     {
         if (!isGrounded && !onPlatform)
@@ -155,7 +154,6 @@ public class GoblinEnemy : FollowingEnemy
 
         if (!isJumping)
         {
-            bool previouslyGrounded = isGrounded || onPlatform;
             Vector2 rayStartLeft = new(transform.position.x - 0.2f, transform.position.y - 0.8f);
             Vector2 rayStartRight = new(transform.position.x + 0.2f, transform.position.y - 0.8f);
 
@@ -190,11 +188,11 @@ public class GoblinEnemy : FollowingEnemy
 
             if (isGrounded)
             {
-                landPosition(groundLeft, groundRight);
+                LandPosition(groundLeft, groundRight);
             }
             else if (onPlatform)
             {
-                landPosition(platformLeft, platformRight);
+                LandPosition(platformLeft, platformRight);
             }
             else { }
         }
@@ -215,7 +213,7 @@ public class GoblinEnemy : FollowingEnemy
         }
     }
 
-    // wall collision check
+    // Wall collision check
     private void CheckWalls()
     {
         Vector2 rayStartBottomLeft = new(transform.position.x - 0.2f, transform.position.y - 0.9f);
@@ -304,8 +302,10 @@ public class GoblinEnemy : FollowingEnemy
         );
 
         return !(
-            (groundLeft.collider != null || groundRight.collider != null)
-            || (platformLeft.collider != null || platformRight.collider != null)
+            groundLeft.collider != null
+            || groundRight.collider != null
+            || platformLeft.collider != null
+            || platformRight.collider != null
         );
     }
 
@@ -327,8 +327,8 @@ public class GoblinEnemy : FollowingEnemy
         }
     }
 
-    // helper function for calculating landing position
-    private void landPosition(RaycastHit2D hitLeft, RaycastHit2D hitRight)
+    // Helper function for calculating landing position
+    private void LandPosition(RaycastHit2D hitLeft, RaycastHit2D hitRight)
     {
         float updatedYPos;
         upSpeed = 0;
@@ -351,9 +351,7 @@ public class GoblinEnemy : FollowingEnemy
     // Platform falling timing sequence
     private IEnumerator PlatformFallDelay()
     {
-        // Wait for 0.05 seconds.
         yield return new WaitForSeconds(0.3f);
-
         platformFalling = false;
     }
 }
