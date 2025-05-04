@@ -31,6 +31,7 @@ public class GroundEnemy : EnemyController
         }
     }
 
+    // TODO: Simplify this logic
     // Once the attack timer is over, shoot a bullet and start cooldown again
     private void Shoot()
     {
@@ -57,7 +58,7 @@ public class GroundEnemy : EnemyController
                 Anim.SetBool("shoot", true);
             }
 
-            // reset the 1 sec timer
+            // Reset the 1 sec timer
             AttackCooldown = maxAttackCooldown;
         }
     }

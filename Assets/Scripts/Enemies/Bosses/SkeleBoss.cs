@@ -304,7 +304,7 @@ public class SkeleBoss : MonoBehaviour
         anim.SetTrigger("isDead");
         Destroy(gameObject, 0.8f);
 
-        // text that says "Humphrey defeated"
+        // Show boss defeated text
         bossTitleCard.SetActive(true);
         bossTitleCard.transform.GetChild(0).localScale = new Vector3(29, 3, 1);
         bossTitleCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =

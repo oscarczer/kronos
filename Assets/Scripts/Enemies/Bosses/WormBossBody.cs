@@ -8,6 +8,7 @@ public class WormBossBody : MonoBehaviour
     private bool isDead = false;
     public Sprite wormHead;
 
+    // TODO: Put some of this logic into separate functions
     void Update()
     {
         if (isDead)

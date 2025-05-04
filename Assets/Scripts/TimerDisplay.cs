@@ -12,7 +12,7 @@ public class TimerDisplay : MonoBehaviour
 
     private float previousTime;
 
-    // animating is 0 for false, 1 for animating up, -1 for animating down
+    // Animating is 0 for false, 1 for animating up, -1 for animating down
     private int animating = 0;
 
     void Start()
@@ -24,8 +24,7 @@ public class TimerDisplay : MonoBehaviour
 
     void Update()
     {
-        // if the players time has changed significatly in the last frame,
-        //  do some visual stuff with the display
+        // If the players time has changed significantly in the last frame, do some visual stuff with the display
         if (animating == 0)
         {
             previousTime = time;
@@ -34,7 +33,7 @@ public class TimerDisplay : MonoBehaviour
 
         if (animating == 0 && Mathf.Abs(previousTime - time) >= 5)
         {
-            // big change
+            // Big change
             animating = (int)Mathf.Sign(time - previousTime);
             StartCoroutine(TimerAnimator());
         }
@@ -48,14 +47,14 @@ public class TimerDisplay : MonoBehaviour
     {
         if (animating == 0)
         {
-            // display time as normal
+            // Display time as normal
             seconds100.text = Mathf.FloorToInt(time / 100).ToString();
             seconds10.text = Mathf.FloorToInt((time / 10) % 10).ToString();
             seconds.text = Mathf.FloorToInt(time % 10).ToString();
         }
         else
         {
-            // display previousTime, letting us animate
+            // Display previousTime, letting us animate
             seconds100.text = Mathf.FloorToInt(previousTime / 100).ToString();
             seconds10.text = Mathf.FloorToInt((previousTime / 10) % 10).ToString();
             seconds.text = Mathf.FloorToInt(previousTime % 10).ToString();
@@ -90,36 +89,36 @@ public class TimerDisplay : MonoBehaviour
 
     private IEnumerator TimerAnimator()
     {
-        // change the timer every few frames
+        // Change the timer every few frames
         yield return new WaitForSeconds(0.05f);
 
         if (animating == 1)
         {
-            // animating up
+            // Animating up
             previousTime++;
             if (previousTime > time)
             {
-                // animation has finished, return to normal
+                // Animation has finished, return to normal
                 animating = 0;
             }
             else
             {
-                // call this again if the animation has not finished
+                // Call this again if the animation has not finished
                 StartCoroutine(TimerAnimator());
             }
         }
         else if (animating == -1)
         {
-            // animating down
+            // Animating down
             previousTime--;
             if (previousTime < time)
             {
-                // animation has finished, return to normal
+                // Animation has finished, return to normal
                 animating = 0;
             }
             else
             {
-                // call this again if the animation has not finished
+                // Call this again if the animation has not finished
                 StartCoroutine(TimerAnimator());
             }
         }

@@ -29,22 +29,22 @@ public class CameraController : MonoBehaviour
         // When player goes out of camera view, start a screen transition
         if (playerTransform.transform.position.x > currentPosX + 13f)
         {
-            // move screen right
+            // Move screen right
             MoveToNewRoom(new Vector2(currentPosX + 26, currentPosY));
         }
         if (playerTransform.transform.position.x < currentPosX - 13f)
         {
-            // move screen left
+            // Move screen left
             MoveToNewRoom(new Vector2(currentPosX - 26, currentPosY));
         }
         if (playerTransform.transform.position.y > currentPosY + 5.5f)
         {
-            // move screen up
+            // Move screen up
             MoveToNewRoom(new Vector2(currentPosX, currentPosY + 11));
         }
         if (playerTransform.transform.position.y < currentPosY - 5.5f)
         {
-            // move screen down
+            // Move screen down
             MoveToNewRoom(new Vector2(currentPosX, currentPosY - 11));
         }
     }

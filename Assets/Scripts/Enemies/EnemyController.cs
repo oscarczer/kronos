@@ -120,7 +120,7 @@ public class EnemyController : MonoBehaviour
         {
             IsDead = true;
             Player.GetComponent<PlayerController>().AlterTime(timeGainedFromKill);
-            // turn off Hitbox, so player cannot hit enemy and enemy cannot hit player
+            // Turn off hitbox, so player cannot hit enemy and enemy cannot hit player
             transform.GetChild(0).gameObject.SetActive(false);
 
             Anim.SetTrigger("dead");

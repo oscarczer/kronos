@@ -72,15 +72,12 @@ public class SlimeEnemy : EnemyController
             {
                 playerController.AlterTime(attackDamage);
                 playerController.StartKnockBack(transform.position);
-
-                //AttackCooldown = maxAttackCooldown;
             }
         }
     }
 
     private IEnumerator JumpDelay()
     {
-        // Wait for 0.05 seconds.
         yield return new WaitForSeconds(1.2f);
         canJump = true;
     }

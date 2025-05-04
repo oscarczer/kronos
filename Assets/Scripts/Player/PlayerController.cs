@@ -175,7 +175,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             HandlePause();
 
-        // shop audio handling
+        // TODO: Audio handling should NOT be in the player controller
+        // Shop audio handling
         if (shopMusic != null)
         {
             normalMusic.volume = 1f - 2 * shopMusic.volume;
@@ -189,7 +190,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // general movement handler
+    // General movement handler
     private void Move()
     {
         bool right = Input.GetKey(KeyCode.D);
@@ -260,7 +261,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // jump action handler
+    // Jump action handler
     private void Jump()
     {
         if (isDashing)
@@ -282,7 +283,6 @@ public class PlayerController : MonoBehaviour
             )
             {
                 upSpeed -= Time.deltaTime * 0.54f * gravAcc;
-                // going up still:
                 Vector3 newPos = transform.position + Vector3.up * upSpeed * Time.deltaTime;
                 if (FutureCheckCeiling(newPos))
                 {
@@ -323,7 +323,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // dash action handler
+    // Dash action handler
     private void Dash()
     {
         // Reset dash buffer when dash button is released
@@ -337,15 +337,13 @@ public class PlayerController : MonoBehaviour
             if (remainingDashes > 0 && !dashOnCooldown && canBufferDash)
             {
                 dashSFX.Play();
-                // make invulnerable while dashing
+                // Make invulnerable while dashing
                 invulnerable = true;
 
                 canBufferDash = false;
                 remainingDashes--;
                 isDashing = true;
                 anim.SetTrigger("dash");
-
-                //float vertical = Input.GetAxis("Vertical");
 
                 bool right = Input.GetKey(KeyCode.D);
 
@@ -363,7 +361,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // down platform action handler
+    // Down platform action handler
     private void DownPlatform()
     {
         if (onPlatform && Input.GetKey(KeyCode.S))
@@ -375,7 +373,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // ground collision check
+    // Ground collision check
     private void CheckGround()
     {
         if (platformFalling)
@@ -436,11 +434,11 @@ public class PlayerController : MonoBehaviour
 
             if (isGrounded)
             {
-                landPosition(groundLeft, groundRight);
+                LandPosition(groundLeft, groundRight);
             }
             else if (onPlatform)
             {
-                landPosition(platformLeft, platformRight);
+                LandPosition(platformLeft, platformRight);
             }
         }
         // Checking ceiling:
@@ -460,7 +458,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // wall collision check
+    // Wall collision check
     private void CheckWalls()
     {
         Vector2 rayStartBottomLeft = new(transform.position.x - 0.2f, transform.position.y - 0.9f);
@@ -571,8 +569,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // helper function for calculating landing position
-    private void landPosition(RaycastHit2D hitLeft, RaycastHit2D hitRight)
+    // Helper function for calculating landing position
+    private void LandPosition(RaycastHit2D hitLeft, RaycastHit2D hitRight)
     {
         float updatedYPos;
         upSpeed = 0;
@@ -718,7 +716,7 @@ public class PlayerController : MonoBehaviour
     {
         if (gamePaused)
         {
-            // unpause
+            // Unpause
             timePaused = false;
             immobile = false;
             pauseOverlay.SetActive(false);
@@ -728,15 +726,14 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            // pause game
+            // Pause
             timePaused = true;
             immobile = true;
             pauseOverlay.SetActive(true);
             normalMusic.Pause();
             if (shopMusic.clip != null)
                 shopMusic.Pause();
-            // other things that need to be done:
-            // stop enemies from attacking
+            // TODO: Stop enemies from attacking
         }
         gamePaused = !gamePaused;
     }
@@ -753,9 +750,10 @@ public class PlayerController : MonoBehaviour
             SetDefaultFields();
             GetCurrentDataFields();
         }
+
+        // Only do this the first time
         if (collision.gameObject.name == "Start Game Trigger")
         {
-            // only do this the first time
             if (!normalMusic.isPlaying)
             {
                 // Set timer to starting time
@@ -769,19 +767,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // TODO: Get rid of this
+        // TODO: Find better way of initialising levels
         if (collision.gameObject.name == "Start Level Trigger")
         {
             isTutorial = false;
             // Set timer to starting time
             timePaused = false;
-            // make timer visible
+            // Make timer visible
             GameObject.Find("GUI").transform.GetChild(0).gameObject.SetActive(true);
-
-            // make sure this cant be activated again
+            // Make sure this cant be activated again
             collision.gameObject.SetActive(false);
         }
 
+        // TODO: Move this into worm logic
         if (!invulnerable)
         {
             if (collision.tag == "WormBody")
@@ -802,7 +800,7 @@ public class PlayerController : MonoBehaviour
             timePaused = false;
     }
 
-    // function for altering and displaying health
+    // Function for altering and displaying health
     public void AlterTime(float timeGained)
     {
         if (!isTutorial)
@@ -836,7 +834,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // i-frames
+    // Invincibility when taking damage
     private IEnumerator IFrames(float timeInvulnerable)
     {
         invulnerable = true;
@@ -847,7 +845,6 @@ public class PlayerController : MonoBehaviour
     // Platform falling timing sequence
     private IEnumerator PlatformFallDelay()
     {
-        // Wait for 0.05 seconds.
         yield return new WaitForSeconds(0.3f);
 
         platformFalling = false;
@@ -859,7 +856,7 @@ public class PlayerController : MonoBehaviour
         // Dash
         yield return new WaitForSeconds(dashDuration);
 
-        // Dashing has finised
+        // Dashing has finished
         isDashing = false;
         dashOnCooldown = true;
 
@@ -872,7 +869,7 @@ public class PlayerController : MonoBehaviour
         dashOnCooldown = false;
     }
 
-    // Cutscene handler
+    // Opening cutscene
     private IEnumerator CutScene()
     {
         timePaused = true;
@@ -882,17 +879,17 @@ public class PlayerController : MonoBehaviour
         remainingJumps = 0;
         remainingDashes = 0;
 
-        // wait to hit ground
+        // Wait to hit ground
         while (!isGrounded)
         {
             yield return null;
         }
-        // set fall speed back to normal
+        // Set fall speed back to normal
         maxGrav = maxGrav * 1.5f;
         yield return null;
     }
 
-    // Game Over cutscene
+    // Game over cutscene
     private IEnumerator GameOver()
     {
         yield return new WaitForSeconds(1f);

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class EndWormFightManager : MonoBehaviour
 {
     public GameObject transistor;
 

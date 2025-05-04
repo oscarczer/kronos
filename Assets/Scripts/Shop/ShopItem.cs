@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class ShopItem : MonoBehaviour
 {
-    // update player stats
     private PlayerController player;
 
     // Shop item variables
     public float cost;
+
+    // TODO: Make these fixed values and also an enum type rather than prefab variants
     public float swordLengthIncrease;
     public float attackSpeedIncrease;
     public float dashLengthIncrease;
@@ -23,32 +24,30 @@ public class ShopItem : MonoBehaviour
 
     void Update()
     {
-        // purchase things (uses attack button)
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            // confirm that the text is visible
+            // Confirm that the text is visible
             if (transform.GetChild(0).gameObject.activeSelf)
             {
-                // pay for the item
+                // Pay for the item
                 player.RemainingTime -= cost;
                 player.getItemSFX.Play();
 
-                // update the players stats
+                // Update the players stats
                 player.dashDuration += dashLengthIncrease;
                 player.maxAttackCooldown += attackSpeedIncrease;
                 player.attackDamage -= swordDamageIncrease;
                 player.moveSpeed += moveSpeedIncrease;
                 player.lifeStealConstant += lifeStealIncrease;
 
-                // update attack hitbox size
+                // Update attack hitbox size
                 Vector2 attackPointPos = player.transform.GetChild(1).transform.position;
-                // need to figure out whether to add or subtract to the position.x
                 Vector2 basePoint = player.transform.GetChild(0).transform.position;
                 int sign = (int)Mathf.Sign(attackPointPos.x - basePoint.x);
                 attackPointPos.x += sign * swordLengthIncrease;
                 player.transform.GetChild(1).transform.position = attackPointPos;
 
-                // remove this item from the shop
+                // Remove this item from the shop
                 gameObject.SetActive(false);
 
                 TextMeshProUGUI keeperText = GetComponentInParent<ItemRandomiser>().keeperText;
@@ -58,13 +57,12 @@ public class ShopItem : MonoBehaviour
         }
     }
 
-    // Handle shop things
     private void OnTriggerStay2D(Collider2D collision)
     {
         string objname = collision.gameObject.name;
         if (objname == "Player")
         {
-            // make text visible
+            // Make text visible
             transform.GetChild(0).gameObject.SetActive(true);
         }
     }
@@ -74,7 +72,7 @@ public class ShopItem : MonoBehaviour
         string objname = collision.gameObject.name;
         if (objname == "Player")
         {
-            // turn text off
+            // Turn text off
             transform.GetChild(0).gameObject.SetActive(false);
         }
     }
