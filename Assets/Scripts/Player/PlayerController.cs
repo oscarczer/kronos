@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -81,14 +80,8 @@ public class PlayerController : MonoBehaviour
 
     private enum DashDirection
     {
-        Up,
-        Down,
         Left,
         Right,
-        UpRight,
-        DownRight,
-        DownLeft,
-        UpLeft,
     }
 
     // Attack Variables
@@ -405,11 +398,14 @@ public class PlayerController : MonoBehaviour
             );
 
             // Check we aren't inside a platform:
-            //if (Physics2D.Raycast(rayStartLeft, Vector2.up, 0.15f, platformLayer).collider != null ||
-            //    Physics2D.Raycast(rayStartRight, Vector2.up, 0.15f, platformLayer).collider != null)
-            //{
-            //    return;
-            //}
+            if (
+                Physics2D.Raycast(rayStartLeft, Vector2.up, 0.15f, platformLayer).collider != null
+                || Physics2D.Raycast(rayStartRight, Vector2.up, 0.15f, platformLayer).collider
+                    != null
+            )
+            {
+                return;
+            }
 
             RaycastHit2D groundLeft = Physics2D.Raycast(
                 rayStartLeft,
