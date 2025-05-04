@@ -10,7 +10,6 @@ public class ItemRandomiser : MonoBehaviour
     public TextMeshProUGUI keeperText;
     public bool boughtSomething = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         Vector3 pos = items[0].gameObject.transform.position + transform.position;

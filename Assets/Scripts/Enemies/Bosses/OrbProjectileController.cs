@@ -3,13 +3,11 @@ using UnityEngine;
 public class OrbProjectileController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    int remainingCollisions = 3;
     private PlayerController player;
     public Vector2 thrust;
     private readonly float speed = 5f;
     public GameObject healthPopup;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -20,15 +18,9 @@ public class OrbProjectileController : MonoBehaviour
         Physics2D.IgnoreLayerCollision(3, 6); // enemy / ground
     }
 
-    // Update is called once per frame
     void Update()
     {
         rb.linearVelocity = speed * rb.linearVelocity.normalized;
-
-        if (remainingCollisions == 0)
-        {
-            Destroy(gameObject);
-        }
 
         if (Mathf.Abs(transform.position.x) > 25 || Mathf.Abs(transform.position.y) > 10)
         {
@@ -45,10 +37,6 @@ public class OrbProjectileController : MonoBehaviour
                 player.AlterTime(-5);
             }
             Destroy(gameObject);
-        }
-        else
-        {
-            remainingCollisions -= 1;
         }
     }
 }

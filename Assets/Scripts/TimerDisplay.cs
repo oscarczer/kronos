@@ -15,7 +15,6 @@ public class TimerDisplay : MonoBehaviour
     // animating is 0 for false, 1 for animating up, -1 for animating down
     private int animating = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -23,7 +22,6 @@ public class TimerDisplay : MonoBehaviour
         previousTime = time;
     }
 
-    // Update is called once per frame
     void Update()
     {
         // if the players time has changed significatly in the last frame,

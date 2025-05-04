@@ -6,7 +6,6 @@ public class Bullet : FollowingEnemy
     private float aliveTime;
     public AudioSource explodeSFX;
 
-    // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -15,7 +14,6 @@ public class Bullet : FollowingEnemy
         aliveTime = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!Player.GetComponent<PlayerController>().IsDead)

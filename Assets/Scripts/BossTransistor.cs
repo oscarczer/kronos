@@ -10,14 +10,12 @@ public class BossTransistor : MonoBehaviour
     public string newScene;
     public string oldScene;
 
-    // Start is called before the first frame update
     void Start()
     {
         playerObj = GameObject.FindGameObjectWithTag("Player");
         player = playerObj.GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         // purchase things (uses attack button)

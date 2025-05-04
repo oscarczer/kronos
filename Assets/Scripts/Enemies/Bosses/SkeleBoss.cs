@@ -42,7 +42,6 @@ public class SkeleBoss : MonoBehaviour
     private Transform attackTwoPoint1;
     private Transform attackTwoPoint2;
 
-    // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();

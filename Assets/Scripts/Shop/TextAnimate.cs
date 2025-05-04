@@ -9,14 +9,12 @@ public class TextAnimate : MonoBehaviour
     public int charsVisible = 0;
     private bool animating = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         text.maxVisibleCharacters = charsVisible;
         transform.GetChild(0).gameObject.SetActive(true);
     }
 
-    // Update is called once per frame
     void Update()
     {
         text.maxVisibleCharacters = charsVisible;

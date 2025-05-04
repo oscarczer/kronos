@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class DeathPopup : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         // Set color based on whether the player gains or loses time
@@ -24,7 +23,6 @@ public class DeathPopup : MonoBehaviour
         Destroy(gameObject, 1f);
     }
 
-    // Update is called once per frame
     void Update()
     {
         // move up every frame

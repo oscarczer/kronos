@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class FlyingEnemy : FollowingEnemy
 {
-    // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -11,7 +10,6 @@ public class FlyingEnemy : FollowingEnemy
         CurrentHealth = maxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (chase && !Player.GetComponent<PlayerController>().IsDead)

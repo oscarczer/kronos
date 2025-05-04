@@ -12,7 +12,6 @@ public class SlimeEnemyBlue : EnemyController
     private readonly float maxJumpSpeed = 2.5f;
     private Vector3 targetPos;
 
-    // Start is called before the first frame update
     void Start()
     {
         positionIndex = 0;
@@ -22,7 +21,6 @@ public class SlimeEnemyBlue : EnemyController
         Anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (canJump)

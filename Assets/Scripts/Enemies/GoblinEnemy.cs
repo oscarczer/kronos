@@ -21,7 +21,6 @@ public class GoblinEnemy : FollowingEnemy
     private bool isJumping = false;
     private float upSpeed = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         Player = (GameObject.FindGameObjectWithTag("Player"));
@@ -31,7 +30,6 @@ public class GoblinEnemy : FollowingEnemy
         CurrentHealth = maxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckGround();

@@ -10,10 +10,8 @@ public class Collectible : MonoBehaviour
 
     public GameObject deathPopup;
 
-    // Update is called once per frame
     void Update()
     {
-        // SPIN FOR ME BOY SPIN FOR ME
         transform.Rotate(new Vector3(0, 0, -90 * Time.deltaTime));
 
         // boss fight 1, the collectible moves
