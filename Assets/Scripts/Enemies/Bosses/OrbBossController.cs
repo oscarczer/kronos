@@ -27,7 +27,6 @@ public class OrbBossController : MonoBehaviour
     public AudioSource wind;
     public AudioSource music;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -77,7 +76,6 @@ public class OrbBossController : MonoBehaviour
         yield return null;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (cutscene || player.IsDead)

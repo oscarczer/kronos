@@ -7,7 +7,6 @@ public class GroundEnemy : EnemyController
     private int shotsFired = 0;
     public AudioSource shootSFX;
 
-    // Start is called before the first frame update
     void Start()
     {
         CurrentHealth = maxHealth;
@@ -16,7 +15,6 @@ public class GroundEnemy : EnemyController
         Anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!Player.GetComponent<PlayerController>().IsDead && !isKnockingUp)

@@ -108,7 +108,6 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    // Start is called before the first frame update
     void Start()
     {
         GetCurrentDataFields();
@@ -132,7 +131,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!isDead && !immobile)

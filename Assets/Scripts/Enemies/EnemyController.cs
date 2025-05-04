@@ -78,7 +78,6 @@ public class EnemyController : MonoBehaviour
     }
     #endregion
 
-    // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;

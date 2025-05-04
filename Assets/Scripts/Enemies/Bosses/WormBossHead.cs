@@ -11,14 +11,12 @@ public class WormBossHead : MonoBehaviour
     public GameObject bullet;
     public Sprite wormHead;
 
-    // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isDead)

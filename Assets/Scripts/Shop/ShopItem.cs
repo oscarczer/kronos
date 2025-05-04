@@ -15,14 +15,12 @@ public class ShopItem : MonoBehaviour
     public float moveSpeedIncrease;
     public float lifeStealIncrease;
 
-    // Start is called before the first frame update
     void Start()
     {
         GameObject temp = GameObject.Find("Player");
         player = temp.GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         // purchase things (uses attack button)
