@@ -6,6 +6,8 @@ public class Collectible : MonoBehaviour
     public Vector2 thrust = Vector2.zero;
     public bool destroyOffScreen = false;
     public GameObject deathPopup;
+    public bool despawn = false;
+    private float countdown = 2f;
 
     void Update()
     {
@@ -23,6 +25,19 @@ public class Collectible : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        if (despawn)
+            Despawn();
+    }
+
+    private void Despawn()
+    {
+        if (countdown <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+        countdown -= Time.deltaTime;
     }
 
     // Player collects this

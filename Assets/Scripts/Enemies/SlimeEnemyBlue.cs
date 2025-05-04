@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+// TODO: Delete this file entirely and make all slimes a variant on the green one
 public class SlimeEnemyBlue : EnemyController
 {
     public GameObject[] landingLocations;
